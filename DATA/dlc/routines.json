@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Morning Setup",
+    "hour": 8,
+    "minute": 0,
+    "days": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "actions": [
+      "open_browser",
+      "check_weather"
+    ],
+    "enabled": true,
+    "last_run": null
+  },
+  {
+    "name": "Night Code Session",
+    "hour": 22,
+    "minute": 0,
+    "days": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "actions": [
+      "open_vscode"
+    ],
+    "enabled": true,
+    "last_run": null
+  },
+  {
+    "name": "Midnight Learning",
+    "hour": 0,
+    "minute": 0,
+    "days": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "actions": [
+      "run_auto_learning"
+    ],
+    "enabled": true,
+    "last_run": "2026-04-18T00:04:12.118039"
+  }
+]

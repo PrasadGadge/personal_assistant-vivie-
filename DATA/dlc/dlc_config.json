@@ -1,0 +1,23 @@
+{
+  "watched_folders": [
+    "C:\\Users\\dell\\Desktop",
+    "C:\\Users\\dell\\Downloads",
+    "C:\\Users\\dell\\Documents"
+  ],
+  "watch_extensions": [
+    ".py",
+    ".txt",
+    ".pdf",
+    ".docx",
+    ".jpg",
+    ".png"
+  ],
+  "alert_on": [
+    "new_file",
+    "deleted_file",
+    "modified_file"
+  ],
+  "check_interval": 30,
+  "routine_enabled": true,
+  "silent_mode": true
+}

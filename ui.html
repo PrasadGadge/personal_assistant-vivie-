@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIVIE - AI Voice Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #050505;
+            --fg: #6a9fd8;
+            --accent: #00e8f0;
+            --accent-dim: rgba(0, 232, 240, 0.12);
+            --muted: #2e3444;
+            --border: rgba(106, 159, 216, 0.06);
+            --glow: rgba(0, 232, 240, 0.35);
+            --label-color: #3a5a80;
+            --value-color: #5cdbfa;
+            --value-glow: rgba(92, 219, 250, 0.45);
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: var(--bg);
+            color: var(--fg);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        #canvas-container { position: fixed; inset: 0; z-index: 0; }
+
+        .vignette {
+            position: fixed; inset: 0;
+            background: radial-gradient(ellipse at 42% 46%, transparent 20%, rgba(0,0,0,0.75) 100%);
+            z-index: 1; pointer-events: none;
+        }
+        .scanlines {
+            position: fixed; inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px);
+            z-index: 3; pointer-events: none;
+        }
+
+        .hud-corner { position: fixed; width: 22px; height: 22px; z-index: 4; pointer-events: none; }
+        .hud-corner::before, .hud-corner::after { content: ''; position: absolute; background: rgba(106,159,216,0.08); }
+        .hud-tl { top: 12px; left: 12px; }
+        .hud-tl::before { top: 0; left: 0; width: 16px; height: 1px; }
+        .hud-tl::after  { top: 0; left: 0; width: 1px; height: 16px; }
+        .hud-tr { top: 12px; right: 12px; }
+        .hud-tr::before { top: 0; right: 0; width: 16px; height: 1px; }
+        .hud-tr::after  { top: 0; right: 0; width: 1px; height: 16px; }
+        .hud-bl { bottom: 12px; left: 12px; }
+        .hud-bl::before { bottom: 0; left: 0; width: 16px; height: 1px; }
+        .hud-bl::after  { bottom: 0; left: 0; width: 1px; height: 16px; }
+        .hud-br { bottom: 12px; right: 12px; }
+        .hud-br::before { bottom: 0; right: 0; width: 16px; height: 1px; }
+        .hud-br::after  { bottom: 0; right: 0; width: 1px; height: 16px; }
+
+        /* WS status indicator */
+        #wsStatus {
+            position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
+            z-index: 10; pointer-events: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 7px; letter-spacing: 3px;
+            color: var(--label-color); opacity: 0.5;
+            transition: opacity 0.5s;
+        }
+        #wsStatus.connected { opacity: 0; }
+        #wsStatus.disconnected { opacity: 0.7; color: #c06060; }
+
+        .overlay {
+            position: fixed; inset: 0; z-index: 2; pointer-events: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr 270px;
+            grid-template-rows: 1fr;
+        }
+
+        .left-info {
+            grid-column: 1; grid-row: 1;
+            padding: 36px 24px 36px 26px;
+            display: flex; flex-direction: column; justify-content: flex-start;
+        }
+
+        .brand-group { margin-bottom: 6px; }
+        .brand-tag {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 8px; font-weight: 500;
+            letter-spacing: 4px; color: var(--label-color);
+            text-transform: uppercase; margin-bottom: 8px;
+        }
+        .brand-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px; font-weight: 900;
+            letter-spacing: 12px; color: var(--value-color);
+            text-shadow: 0 0 10px rgba(92,219,250,0.75), 0 0 30px rgba(92,219,250,0.35), 0 0 70px rgba(92,219,250,0.15);
+            line-height: 1;
+        }
+        .brand-sub {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 9px; letter-spacing: 2.5px;
+            color: var(--label-color); margin-top: 6px; opacity: 0.65;
+        }
+        .brand-sep {
+            width: 90px; height: 1px; margin: 18px 0;
+            background: linear-gradient(90deg, var(--value-color) 0%, rgba(92,219,250,0.12) 70%, transparent 100%);
+            opacity: 0.5;
+        }
+
+        .core-status-row {
+            display: flex; align-items: center;
+            gap: 8px; margin-bottom: 20px;
+        }
+        .core-status-dot {
+            width: 6px; height: 6px; background: var(--value-color);
+            border-radius: 50%; box-shadow: 0 0 8px var(--value-glow);
+            animation: corePulse 2s ease-in-out infinite; flex-shrink: 0;
+            transition: background 0.4s, box-shadow 0.4s;
+        }
+        .core-status-dot.thinking { background: #f0b840; box-shadow: 0 0 8px rgba(240,184,64,0.5); animation: thinkPulse 0.8s ease-in-out infinite; }
+        .core-status-dot.speaking { background: #40f0c0; box-shadow: 0 0 12px rgba(64,240,192,0.7); animation: speakPulse 0.4s ease-in-out infinite; }
+        @keyframes corePulse { 0%,100%{opacity:0.4;transform:scale(0.85);} 50%{opacity:1;transform:scale(1.15);} }
+        @keyframes thinkPulse { 0%,100%{opacity:0.6;transform:scale(0.9);} 50%{opacity:1;transform:scale(1.3);} }
+        @keyframes speakPulse { 0%,100%{opacity:0.8;transform:scale(1);} 50%{opacity:1;transform:scale(1.4);} }
+
+        .core-status-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px; font-weight: 600;
+            letter-spacing: 3px; color: var(--value-color);
+            text-transform: uppercase;
+            text-shadow: 0 0 6px rgba(92,219,250,0.4);
+            transition: color 0.4s;
+        }
+
+        .metrics-stack { display: flex; flex-direction: column; gap: 14px; }
+        .metric-card { display: flex; flex-direction: column; gap: 2px; }
+        .metric-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 7px; font-weight: 500;
+            letter-spacing: 2.5px; color: var(--label-color);
+            text-transform: uppercase;
+        }
+        .metric-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px; font-weight: 700;
+            color: var(--value-color);
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 6px rgba(92,219,250,0.85), 0 0 16px rgba(92,219,250,0.45), 0 0 35px rgba(92,219,250,0.18);
+            line-height: 1.2;
+        }
+        .metric-value .unit {
+            font-size: 9px; font-weight: 500;
+            color: var(--label-color); margin-left: 2px;
+            text-shadow: none;
+        }
+        .metric-bar-track {
+            width: 100%; height: 2px;
+            background: rgba(58,90,128,0.15);
+            border-radius: 1px; margin-top: 6px; overflow: hidden;
+        }
+        .metric-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--value-color), rgba(92,219,250,0.2));
+            border-radius: 1px;
+            box-shadow: 0 0 6px rgba(92,219,250,0.25);
+            transition: width 0.8s ease;
+        }
+
+        .sub-sep { width: 36px; height: 1px; background: var(--border); margin: 20px 0 16px; }
+
+        .sys-log-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 7px; font-weight: 600;
+            letter-spacing: 3px; color: var(--label-color);
+            text-transform: uppercase; margin-bottom: 8px;
+        }
+        .sys-log { display: flex; flex-direction: column; gap: 4px; }
+        .sys-log-line {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 9px; letter-spacing: 0.5px;
+            color: var(--label-color); opacity: 0.5;
+            line-height: 1.3; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis;
+            transition: opacity 0.3s;
+        }
+        .sys-log-line.fresh { opacity: 0.85; color: var(--value-color); }
+        .sys-log-line .log-ts { color: var(--value-color); opacity: 0.6; margin-right: 6px; }
+        .sys-log-line.user-msg { color: #8ad4f5; opacity: 0.7; }
+        .sys-log-line.vivie-msg { color: var(--value-color); opacity: 0.8; }
+
+        .clock-block { margin-top: auto; text-align: left; }
+        .clock-time {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 26px; font-weight: 800;
+            letter-spacing: 5px; color: var(--value-color);
+            text-shadow: 0 0 10px rgba(92,219,250,0.5), 0 0 30px rgba(92,219,250,0.15);
+            line-height: 1; opacity: 0.55;
+        }
+        .clock-date {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 9px; letter-spacing: 2px;
+            color: var(--label-color); margin-top: 5px; opacity: 0.45;
+        }
+
+        .right-panel {
+            grid-column: 3; grid-row: 1;
+            padding: 38px 22px 38px 0;
+            display: flex; flex-direction: column; justify-content: center;
+            pointer-events: auto;
+        }
+        .panel-section { padding: 16px 0; text-align: right; }
+        .panel-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px; font-weight: 600;
+            letter-spacing: 3.5px; color: var(--label-color);
+            margin-bottom: 10px; text-transform: uppercase;
+        }
+        .panel-main-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 15px; font-weight: 700;
+            color: var(--value-color);
+            letter-spacing: 2px;
+            text-shadow: 0 0 6px rgba(92,219,250,0.85), 0 0 16px rgba(92,219,250,0.45), 0 0 35px rgba(92,219,250,0.18);
+            line-height: 1.3;
+        }
+        .panel-sub-value {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 9px; color: var(--label-color);
+            letter-spacing: 1.5px; margin-top: 3px; opacity: 0.7;
+        }
+
+        .led-row { display: flex; justify-content: flex-end; gap: 4px; margin-bottom: 7px; }
+        .led-pill {
+            width: 14px; height: 6px; border-radius: 3px;
+            background: var(--value-color); opacity: 0.1;
+            transition: opacity 0.08s ease, box-shadow 0.08s ease;
+        }
+        .led-pill.lit {
+            opacity: 1; box-shadow: 0 0 6px var(--value-glow);
+            animation: ledFlicker var(--dur) ease-in-out infinite alternate;
+        }
+        @keyframes ledFlicker { 0%{opacity:0.25;} 50%{opacity:1;} 100%{opacity:0.4;} }
+
+        .speaking-tag {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 8px; font-weight: 500;
+            letter-spacing: 2px; color: var(--value-color);
+            text-shadow: 0 0 6px rgba(92,219,250,0.5);
+            text-align: right;
+            transition: color 0.4s;
+        }
+        .speaking-dot {
+            display: inline-block; width: 5px; height: 5px;
+            background: var(--value-color); border-radius: 50%;
+            margin-right: 6px; vertical-align: middle;
+            box-shadow: 0 0 6px var(--value-glow);
+            animation: speakDotPulse 1.4s ease-in-out infinite;
+            transition: background 0.4s;
+        }
+        @keyframes speakDotPulse { 0%,100%{opacity:0.35;transform:scale(0.8);} 50%{opacity:1;transform:scale(1.2);} }
+
+        .volume-row {
+            display: flex; align-items: center;
+            justify-content: flex-end; gap: 10px; margin-top: 2px;
+        }
+        .volume-slider {
+            -webkit-appearance: none; appearance: none; -moz-appearance: none;
+            width: 110px; height: 18px; background: transparent;
+            cursor: pointer; outline: none; margin: 0; padding: 0; border: none;
+        }
+        .volume-slider::-webkit-slider-runnable-track {
+            height: 2px; background: #151b28; border-radius: 1px; border: none;
+        }
+        .volume-slider::-moz-range-track {
+            height: 2px; background: #151b28; border-radius: 1px; border: none;
+        }
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none; appearance: none;
+            width: 12px; height: 12px; background: var(--value-color);
+            border: none; border-radius: 50%; margin-top: -5px;
+            box-shadow: 0 0 8px var(--value-glow), 0 0 3px var(--value-color);
+            cursor: pointer; transition: box-shadow 0.15s ease, transform 0.15s ease;
+        }
+        .volume-slider::-webkit-slider-thumb:hover {
+            box-shadow: 0 0 14px var(--value-glow), 0 0 5px var(--value-color);
+            transform: scale(1.15);
+        }
+        .volume-slider::-moz-range-thumb {
+            width: 12px; height: 12px; background: var(--value-color);
+            border: none; border-radius: 50%;
+            box-shadow: 0 0 8px var(--value-glow), 0 0 3px var(--value-color); cursor: pointer;
+        }
+        .volume-slider:focus { outline: none; }
+        .volume-pct {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px; font-weight: 600; color: var(--value-color);
+            min-width: 36px; text-align: right; letter-spacing: 1px;
+            text-shadow: 0 0 6px rgba(92,219,250,0.85), 0 0 14px rgba(92,219,250,0.35);
+        }
+        .mute-btn {
+            display: inline-block; margin-top: 10px;
+            padding: 5px 14px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 8px; font-weight: 500; letter-spacing: 2.5px;
+            color: var(--label-color); background: transparent;
+            border: 1px solid rgba(58,90,128,0.35); border-radius: 3px;
+            cursor: pointer; transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
+            text-transform: uppercase; float: right; pointer-events: auto;
+        }
+        .mute-btn:hover { color: var(--value-color); border-color: rgba(92,219,250,0.4); box-shadow: 0 0 10px rgba(92,219,250,0.12); }
+        .mute-btn.muted { color: #c06060; border-color: rgba(180,60,60,0.4); }
+        .panel-section::after { content:''; display:table; clear:both; }
+
+        .bottom-status {
+            position: fixed; bottom: 30px;
+            left: 50%; transform: translateX(-50%);
+            width: 100%; text-align: center;
+            z-index: 5; padding: 0;
+            pointer-events: auto; cursor: pointer; user-select: none;
+        }
+        .status-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px; font-weight: 600;
+            letter-spacing: 7px; color: var(--accent);
+            text-shadow: 0 0 8px var(--glow), 0 0 20px rgba(0,232,240,0.2);
+            animation: statusBreath 2.5s ease-in-out infinite;
+            transition: color 0.4s, text-shadow 0.4s;
+        }
+        .status-text.idle  { color: var(--muted); text-shadow: none; animation: none; }
+        .status-text.thinking { color: #f0b840; text-shadow: 0 0 8px rgba(240,184,64,0.5); animation: statusBreath 0.8s ease-in-out infinite; }
+        .status-dot {
+            display: inline-block; width: 5px; height: 5px; background: var(--accent);
+            border-radius: 50%; margin-right: 10px; vertical-align: middle;
+            box-shadow: 0 0 5px var(--glow);
+            animation: dotPulse 1.2s ease-in-out infinite;
+            transition: background 0.4s, box-shadow 0.4s;
+        }
+        .status-text.idle .status-dot { background: var(--muted); box-shadow: none; animation: none; }
+        .status-text.thinking .status-dot { background: #f0b840; box-shadow: 0 0 5px rgba(240,184,64,0.5); animation: dotPulse 0.5s ease-in-out infinite; }
+        .status-hint { display: block; font-size: 8px; color: var(--muted); letter-spacing: 2px; margin-top: 4px; opacity: 0.35; }
+        @keyframes statusBreath { 0%,100%{opacity:0.65;} 50%{opacity:1;} }
+        @keyframes dotPulse { 0%,100%{transform:scale(1);opacity:0.35;} 50%{transform:scale(1.6);opacity:1;} }
+
+        .corner-block {
+            position: fixed; z-index: 4; pointer-events: none;
+            font-size: 9px; letter-spacing: 2.5px; color: var(--muted);
+            opacity: 0.3; line-height: 1;
+        }
+        .corner-block .corner-dot {
+            display: inline-block; width: 4px; height: 4px;
+            background: var(--muted); margin-right: 8px;
+            vertical-align: middle; opacity: 0.5;
+        }
+        .corner-bl { bottom: 16px; left: 20px; }
+        .corner-br { bottom: 16px; right: 20px; text-align: right; }
+        .corner-br .corner-dot { margin-right: 0; margin-left: 8px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .led-pill.lit { animation: none !important; opacity: 0.7 !important; }
+            .speaking-dot, .status-dot, .status-text, .core-status-dot { animation: none !important; }
+        }
+        @media (max-width: 900px) {
+            .overlay { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+            .left-info { display: none; }
+            .right-panel { grid-column:1; grid-row:1; flex-direction:row; flex-wrap:wrap; padding:8px 12px; }
+            .panel-section { flex:1 1 130px; padding:7px 10px; text-align:right; }
+            .corner-block { display: none; }
+            .mute-btn { float: none; }
+            .bottom-status { bottom: 16px; }
+        }
+        @media (max-width: 500px) { .panel-section { flex:1 1 100%; } }
+    </style>
+</head>
+<body>
+
+    <div id="wsStatus">CONNECTING...</div>
+
+    <div id="canvas-container"></div>
+    <div class="vignette"></div>
+    <div class="scanlines"></div>
+    <div class="hud-corner hud-tl"></div>
+    <div class="hud-corner hud-tr"></div>
+    <div class="hud-corner hud-bl"></div>
+    <div class="hud-corner hud-br"></div>
+
+    <div class="corner-block corner-bl">
+        <span class="corner-dot"></span>VISION_SYS // STANDBY
+    </div>
+    <div class="corner-block corner-br">
+        TTS_ENGINE // ONLINE<span class="corner-dot"></span>
+    </div>
+
+    <div class="overlay">
+        <div class="left-info">
+            <div class="brand-group">
+                <div class="brand-tag">AI Assistant</div>
+                <div class="brand-name">VIVIE</div>
+                <div class="brand-sub">v3.2.1 // NEURAL CORE ACTIVE</div>
+            </div>
+            <div class="brand-sep"></div>
+            <div class="core-status-row">
+                <span class="core-status-dot" id="coreStatusDot"></span>
+                <span class="core-status-text" id="coreStatusText">Neural Core Online</span>
+            </div>
+            <div class="metrics-stack">
+                <div class="metric-card">
+                    <span class="metric-label">Confidence</span>
+                    <span class="metric-value" id="confVal">97.3<span class="unit">%</span></span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Response Time</span>
+                    <span class="metric-value" id="latencyVal">—<span class="unit">ms</span></span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Episodes</span>
+                    <span class="metric-value" id="episodeVal">—</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Knowledge</span>
+                    <span class="metric-value" id="knowledgeVal">—</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Memory Load</span>
+                    <span class="metric-value" id="memPct">—<span class="unit">%</span></span>
+                </div>
+                <div class="metric-bar-track">
+                    <div class="metric-bar-fill" id="memBar" style="width:0%"></div>
+                </div>
+            </div>
+            <div class="sub-sep"></div>
+            <div class="sys-log-header">System Log</div>
+            <div class="sys-log" id="sysLog">
+                <div class="sys-log-line"><span class="log-ts" id="initTs">--:--:--</span>Vivie initializing...</div>
+            </div>
+            <div class="clock-block">
+                <div class="clock-time" id="timeDisplay">--:--:--</div>
+                <div class="clock-date" id="dateDisplay">----.--.--</div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="panel-section">
+                <div class="panel-label">Audio Output</div>
+                <div class="led-row" id="ledRow"></div>
+                <div class="speaking-tag">
+                    <span class="speaking-dot" id="speakDot"></span>
+                    <span id="audioStateLabel">STANDBY</span>
+                </div>
+            </div>
+            <div class="panel-section">
+                <div class="panel-label">Volume Control</div>
+                <div class="volume-row">
+                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="80" aria-label="Volume">
+                    <span class="volume-pct" id="volumeVal">80%</span>
+                </div>
+                <button class="mute-btn" id="muteBtn" aria-label="Toggle mute">MUTE</button>
+            </div>
+            <div class="panel-section">
+                <div class="panel-label">Session</div>
+                <div class="panel-main-value" id="sessionId">#--------</div>
+                <div class="panel-sub-value">Secure Channel</div>
+            </div>
+            <div class="panel-section">
+                <div class="panel-label">Agent</div>
+                <div class="panel-main-value">VIVIE</div>
+                <div class="panel-sub-value" id="agentState">Connecting...</div>
+            </div>
+        </div>
+
+        <div class="bottom-status" id="statusToggle" role="button" tabindex="0">
+            <div class="status-text idle" id="statusText">
+                <span class="status-dot"></span>
+                <span id="statusLabel">VIVIE - CONNECTING</span>
+            </div>
+            <span class="status-hint">live system</span>
+        </div>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+        import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+        /* ═══════════════════════════════════════════════════════
+           STATE
+           ═══════════════════════════════════════════════════════ */
+        // 3 orb states: 'idle' | 'thinking' | 'speaking'
+        let vivieState   = 'idle';
+        let isMuted      = false;
+        let _responseStart = null;   // for latency measurement
+
+        // Orb animation targets per state
+        const STATE_TARGETS = {
+            idle:     { speed: 1.0,  expand: 1.0,  bloom: 0.35 },
+            thinking: { speed: 1.85, expand: 1.06, bloom: 0.50 },
+            speaking: { speed: 3.2,  expand: 1.18, bloom: 0.62 },
+        };
+
+        /* ═══════════════════════════════════════════════════════
+           LED ROW
+           ═══════════════════════════════════════════════════════ */
+        const ledRow = document.getElementById('ledRow');
+        const ledEls = [];
+        for (let i = 0; i < 14; i++) {
+            const pill = document.createElement('div');
+            pill.className = 'led-pill';
+            pill.style.setProperty('--dur', (0.15 + Math.random() * 0.5) + 's');
+            pill.style.animationDelay = (Math.random() * 0.6).toFixed(2) + 's';
+            ledRow.appendChild(pill);
+            ledEls.push(pill);
+        }
+
+        // Animate LEDs with audio-style random pattern when speaking
+        let _ledInterval = null;
+        function startLedAnimation() {
+            if (_ledInterval) return;
+            _ledInterval = setInterval(() => {
+                const activeCount = 6 + Math.floor(Math.random() * 8);
+                const indices = new Set();
+                while (indices.size < activeCount) indices.add(Math.floor(Math.random() * 14));
+                ledEls.forEach((el, i) => el.classList.toggle('lit', indices.has(i)));
+            }, 120);
+        }
+        function stopLedAnimation() {
+            if (_ledInterval) { clearInterval(_ledInterval); _ledInterval = null; }
+            ledEls.forEach(el => el.classList.remove('lit'));
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           CLOCK
+           ═══════════════════════════════════════════════════════ */
+        function updateClock() {
+            const now = new Date();
+            const p = n => String(n).padStart(2, '0');
+            document.getElementById('timeDisplay').textContent =
+                `${p(now.getHours())}:${p(now.getMinutes())}:${p(now.getSeconds())}`;
+            document.getElementById('dateDisplay').textContent =
+                `${now.getFullYear()}.${p(now.getMonth()+1)}.${p(now.getDate())}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // Set initial log timestamp
+        {
+            const now = new Date(), p = n => String(n).padStart(2,'0');
+            document.getElementById('initTs').textContent =
+                `${p(now.getHours())}:${p(now.getMinutes())}:${p(now.getSeconds())}`;
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           SYSTEM LOG
+           ═══════════════════════════════════════════════════════ */
+        function addLog(text, cls = '') {
+            const logEl = document.getElementById('sysLog');
+            const now = new Date(), p = n => String(n).padStart(2,'0');
+            const ts = `${p(now.getHours())}:${p(now.getMinutes())}:${p(now.getSeconds())}`;
+            const line = document.createElement('div');
+            line.className = 'sys-log-line fresh' + (cls ? ' ' + cls : '');
+            line.innerHTML = `<span class="log-ts">${ts}</span>${text}`;
+            logEl.appendChild(line);
+            // Fade older lines
+            setTimeout(() => line.classList.remove('fresh'), 2000);
+            while (logEl.children.length > 6) logEl.removeChild(logEl.firstChild);
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           SET VIVIE STATE — drives orb + all UI elements
+           ═══════════════════════════════════════════════════════ */
+        function setVivieState(state) {
+            vivieState = state;
+            const statusText = document.getElementById('statusText');
+            const statusLabel = document.getElementById('statusLabel');
+            const coreStatusDot = document.getElementById('coreStatusDot');
+            const coreStatusText = document.getElementById('coreStatusText');
+            const audioLabel = document.getElementById('audioStateLabel');
+            const agentState = document.getElementById('agentState');
+
+            // Remove all state classes
+            statusText.classList.remove('idle', 'thinking');
+
+            if (state === 'speaking') {
+                statusText.className = 'status-text';
+                statusLabel.textContent = 'VIVIE - SPEAKING';
+                coreStatusDot.className = 'core-status-dot speaking';
+                coreStatusText.textContent = 'Neural Core Active';
+                audioLabel.textContent = 'SPEAKING';
+                agentState.textContent = 'Responding...';
+                startLedAnimation();
+                if (bloomPass) bloomPass.strength = 0.62;
+            } else if (state === 'thinking') {
+                statusText.className = 'status-text thinking';
+                statusLabel.textContent = 'VIVIE - PROCESSING';
+                coreStatusDot.className = 'core-status-dot thinking';
+                coreStatusText.textContent = 'Processing Input';
+                audioLabel.textContent = 'PROCESSING';
+                agentState.textContent = 'Thinking...';
+                stopLedAnimation();
+                if (bloomPass) bloomPass.strength = 0.50;
+            } else {
+                statusText.className = 'status-text idle';
+                statusLabel.textContent = 'VIVIE - LISTENING';
+                coreStatusDot.className = 'core-status-dot';
+                coreStatusText.textContent = 'Neural Core Online';
+                audioLabel.textContent = 'LISTENING';
+                agentState.textContent = 'Standby';
+                stopLedAnimation();
+                if (bloomPass) bloomPass.strength = 0.35;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           WEBSOCKET — auto-reconnect, handles all signals
+           ═══════════════════════════════════════════════════════ */
+        const WS_URL = 'ws://localhost:8765';
+        let ws = null;
+        let wsReconnectTimer = null;
+
+        function connectWS() {
+            if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) return;
+
+            ws = new WebSocket(WS_URL);
+            const statusEl = document.getElementById('wsStatus');
+
+            ws.onopen = () => {
+                statusEl.textContent = 'CONNECTED';
+                statusEl.className = 'connected';
+                addLog('WebSocket connected');
+                setVivieState('idle');
+                if (wsReconnectTimer) { clearTimeout(wsReconnectTimer); wsReconnectTimer = null; }
+            };
+
+            ws.onclose = () => {
+                statusEl.textContent = 'RECONNECTING...';
+                statusEl.className = 'disconnected';
+                wsReconnectTimer = setTimeout(connectWS, 2000);
+            };
+
+            ws.onerror = () => {
+                statusEl.textContent = 'CONNECTION ERROR';
+                statusEl.className = 'disconnected';
+            };
+
+            ws.onmessage = (event) => {
+                try {
+                    const msg = JSON.parse(event.data);
+                    handleSignal(msg.type, msg.value);
+                } catch(e) {}
+            };
+        }
+
+        function sendToVivie(type, value) {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ type, value }));
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           SIGNAL HANDLER — maps every Python signal to UI action
+           ═══════════════════════════════════════════════════════ */
+        function handleSignal(type, value) {
+            switch(type) {
+
+                case 'sig_speaking_state':
+                    if (value === true) {
+                        setVivieState('speaking');
+                        _responseStart = null;
+                    } else {
+                        setVivieState('idle');
+                    }
+                    break;
+
+                case 'sig_agent_state': {
+                    const v = (value || '').toLowerCase();
+                    if (v.includes('speak')) {
+                        setVivieState('speaking');
+                    } else if (v.includes('process') || v.includes('think')) {
+                        setVivieState('thinking');
+                        _responseStart = Date.now();
+                    } else {
+                        setVivieState('idle');
+                    }
+                    document.getElementById('agentState').textContent = value || 'Standby';
+                    break;
+                }
+
+                case 'sig_listening':
+                    if (value === true) setVivieState('idle');
+                    break;
+
+                case 'sig_user_message':
+                    if (value) {
+                        addLog('You: ' + String(value).slice(0, 55), 'user-msg');
+                        _responseStart = Date.now();
+                        setVivieState('thinking');
+                    }
+                    break;
+
+                case 'sig_vivie_message':
+                    if (value) {
+                        addLog('Vivie: ' + String(value).slice(0, 55), 'vivie-msg');
+                        // Measure real response latency
+                        if (_responseStart) {
+                            const ms = Date.now() - _responseStart;
+                            document.getElementById('latencyVal').innerHTML =
+                                ms + '<span class="unit">ms</span>';
+                            _responseStart = null;
+                        }
+                    }
+                    break;
+
+                case 'sig_log':
+                    if (value) addLog(String(value).slice(0, 60));
+                    break;
+
+                case 'sig_memory_update':
+                    if (value && typeof value === 'object') {
+                        const ep  = value.episodes  || 0;
+                        const kn  = value.knowledge || 0;
+                        document.getElementById('episodeVal').textContent = ep;
+                        document.getElementById('knowledgeVal').textContent = kn;
+                        // Memory bar = episodes/500 capped at 100%
+                        const pct = Math.min(100, Math.round(ep / 5));
+                        document.getElementById('memBar').style.width = pct + '%';
+                        document.getElementById('memPct').innerHTML =
+                            pct + '<span class="unit">%</span>';
+                    }
+                    break;
+
+                case 'sig_latency':
+                    if (value != null) {
+                        document.getElementById('latencyVal').innerHTML =
+                            Math.round(value) + '<span class="unit">ms</span>';
+                    }
+                    break;
+
+                case 'sig_session_id':
+                    if (value) {
+                        const id = String(value).startsWith('#')
+                            ? value
+                            : '#' + String(value).toUpperCase().slice(0,8);
+                        document.getElementById('sessionId').textContent = id;
+                    }
+                    break;
+
+                case 'sig_volume_sync':
+                    if (value != null) {
+                        volumeSlider.value = parseInt(value);
+                        volumeValEl.textContent = parseInt(value) + '%';
+                    }
+                    break;
+
+                case 'sig_confidence':
+                    if (value != null) {
+                        document.getElementById('confVal').innerHTML =
+                            parseFloat(value).toFixed(1) + '<span class="unit">%</span>';
+                    }
+                    break;
+
+                case 'sig_reasoning':
+                    if (Array.isArray(value) && value.length) {
+                        addLog('Reasoning: ' + String(value[0]).slice(0, 45));
+                    }
+                    break;
+            }
+        }
+
+        // Start connecting
+        connectWS();
+
+        /* ═══════════════════════════════════════════════════════
+           VOLUME CONTROL → Windows system volume via WebSocket
+           ═══════════════════════════════════════════════════════ */
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumeValEl  = document.getElementById('volumeVal');
+        const muteBtn      = document.getElementById('muteBtn');
+
+        let _volDebounce = null;
+        volumeSlider.addEventListener('input', () => {
+            const v = volumeSlider.value;
+            volumeValEl.textContent = v + '%';
+            // Debounce: send to Python 150ms after last drag
+            clearTimeout(_volDebounce);
+            _volDebounce = setTimeout(() => {
+                sendToVivie('set_volume', parseInt(v));
+            }, 150);
+        });
+
+        muteBtn.addEventListener('click', () => {
+            isMuted = !isMuted;
+            muteBtn.textContent = isMuted ? 'UNMUTE' : 'MUTE';
+            muteBtn.classList.toggle('muted', isMuted);
+            sendToVivie('set_mute', isMuted);
+        });
+
+        /* ═══════════════════════════════════════════════════════
+           THREE.JS SCENE
+           ═══════════════════════════════════════════════════════ */
+        const container = document.getElementById('canvas-container');
+        const scene     = new THREE.Scene();
+        const camera    = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.1, 100);
+        camera.position.set(0, 0, 6.2);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x050505, 1);
+        container.appendChild(renderer.domElement);
+
+        const composer = new EffectComposer(renderer);
+        composer.addPass(new RenderPass(scene, camera));
+        const bloomPass = new UnrealBloomPass(
+            new THREE.Vector2(window.innerWidth, window.innerHeight), 0.35, 0.4, 0.2
+        );
+        composer.addPass(bloomPass);
+
+        const neuralGroup = new THREE.Group();
+        neuralGroup.scale.setScalar(0.82);
+        scene.add(neuralGroup);
+
+        /* Inner core — typed arrays */
+        const CORE_COUNT = 5000;
+        const corePositions = new Float32Array(CORE_COUNT * 3);
+        const coreSizes     = new Float32Array(CORE_COUNT);
+        const coreBright    = new Float32Array(CORE_COUNT);
+        const coreBaseR     = new Float32Array(CORE_COUNT);
+        const coreTheta     = new Float32Array(CORE_COUNT);
+        const corePhi       = new Float32Array(CORE_COUNT);
+        const coreSpeed     = new Float32Array(CORE_COUNT);
+
+        for (let i = 0; i < CORE_COUNT; i++) {
+            const baseR = 0.04 + Math.pow(Math.random(), 1.8) * 1.15;
+            const theta = Math.random() * Math.PI * 2;
+            const phi   = Math.acos(2 * Math.random() - 1);
+            coreBaseR[i] = baseR; coreTheta[i] = theta; corePhi[i] = phi;
+            coreSpeed[i] = (0.25 + Math.random() * 0.45) / (0.25 + baseR * 0.5);
+            const sp = Math.sin(phi);
+            corePositions[i*3]   = baseR * sp * Math.cos(theta);
+            corePositions[i*3+1] = baseR * Math.cos(phi);
+            corePositions[i*3+2] = baseR * sp * Math.sin(theta);
+            coreSizes[i]  = 0.3 + Math.random() * 0.5;
+            coreBright[i] = Math.random() < 0.03 ? 1.4 + Math.random() * 0.4 : 0.55 + Math.random() * 0.4;
+        }
+        const coreGeom = new THREE.BufferGeometry();
+        coreGeom.setAttribute('position', new THREE.BufferAttribute(corePositions, 3));
+        coreGeom.setAttribute('aSize',    new THREE.BufferAttribute(coreSizes, 1));
+        coreGeom.setAttribute('aBright',  new THREE.BufferAttribute(coreBright, 1));
+
+        const coreMat = new THREE.ShaderMaterial({
+            uniforms: {
+                uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
+                uThinking:   { value: 0.0 }
+            },
+            vertexShader: `
+                attribute float aSize; attribute float aBright;
+                varying float vDist; varying float vBright;
+                uniform float uPixelRatio;
+                void main() {
+                    vDist=length(position); vBright=aBright;
+                    vec4 mv=modelViewMatrix*vec4(position,1.0);
+                    gl_PointSize=max(aSize*uPixelRatio*(26.0/-mv.z),0.5);
+                    gl_Position=projectionMatrix*mv;
+                }`,
+            fragmentShader: `
+                varying float vDist; varying float vBright;
+                uniform float uThinking;
+                void main() {
+                    float d=length(gl_PointCoord-vec2(0.5));
+                    if(d>0.5) discard;
+                    float alpha=1.0-smoothstep(0.04,0.44,d);
+                    float t=smoothstep(0.0,1.5,vDist);
+                    vec3 hotWhite=vec3(0.9,0.97,1.0);
+                    vec3 elecCyan=vec3(0.0,0.9,1.0);
+                    vec3 thinkAmber=vec3(0.95,0.75,0.2);
+                    vec3 deepBlue=vec3(0.03,0.15,0.4);
+                    vec3 col=mix(hotWhite,elecCyan,smoothstep(0.0,0.4,t));
+                    col=mix(col,deepBlue,smoothstep(0.4,1.0,t));
+                    col=mix(col,thinkAmber,uThinking*0.35);
+                    col*=vBright;
+                    gl_FragColor=vec4(col,alpha*0.88);
+                }`,
+            transparent: true, blending: THREE.AdditiveBlending, depthWrite: false,
+        });
+        neuralGroup.add(new THREE.Points(coreGeom, coreMat));
+
+        /* Outer plexus */
+        const PLEXUS_COUNT = 600;
+        const plexusPositions = new Float32Array(PLEXUS_COUNT * 3);
+        const plexusSizes     = new Float32Array(PLEXUS_COUNT);
+        const plexusBaseR     = new Float32Array(PLEXUS_COUNT);
+        const plexusTheta     = new Float32Array(PLEXUS_COUNT);
+        const plexusPhi       = new Float32Array(PLEXUS_COUNT);
+        const plexusSpeed     = new Float32Array(PLEXUS_COUNT);
+
+        for (let i = 0; i < PLEXUS_COUNT; i++) {
+            const baseR = 1.05 + Math.random() * 1.35;
+            const theta = Math.random() * Math.PI * 2;
+            const phi   = Math.acos(2 * Math.random() - 1);
+            plexusBaseR[i]=baseR; plexusTheta[i]=theta; plexusPhi[i]=phi;
+            plexusSpeed[i]=(0.06+Math.random()*0.18)/(0.3+baseR*0.25);
+            const sp=Math.sin(phi);
+            plexusPositions[i*3]=baseR*sp*Math.cos(theta);
+            plexusPositions[i*3+1]=baseR*Math.cos(phi);
+            plexusPositions[i*3+2]=baseR*sp*Math.sin(theta);
+            plexusSizes[i]=0.55+Math.random()*0.85;
+        }
+        const plexusGeom = new THREE.BufferGeometry();
+        plexusGeom.setAttribute('position', new THREE.BufferAttribute(plexusPositions, 3));
+        plexusGeom.setAttribute('aSize',    new THREE.BufferAttribute(plexusSizes, 1));
+        const plexusMat = new THREE.ShaderMaterial({
+            uniforms: { uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) } },
+            vertexShader: `
+                attribute float aSize; varying float vDist; uniform float uPixelRatio;
+                void main() {
+                    vDist=length(position);
+                    vec4 mv=modelViewMatrix*vec4(position,1.0);
+                    gl_PointSize=max(aSize*uPixelRatio*(24.0/-mv.z),0.5);
+                    gl_Position=projectionMatrix*mv;
+                }`,
+            fragmentShader: `
+                varying float vDist;
+                void main() {
+                    float d=length(gl_PointCoord-vec2(0.5));
+                    if(d>0.5) discard;
+                    float alpha=1.0-smoothstep(0.06,0.46,d);
+                    float t=smoothstep(0.8,2.5,vDist);
+                    vec3 col=mix(vec3(0.0,0.4,0.55),vec3(0.02,0.08,0.25),t);
+                    gl_FragColor=vec4(col,alpha*0.72);
+                }`,
+            transparent: true, blending: THREE.AdditiveBlending, depthWrite: false,
+        });
+        neuralGroup.add(new THREE.Points(plexusGeom, plexusMat));
+
+        /* Plexus lines with spatial hash */
+        const MAX_LINES = 5000;
+        const linePositions = new Float32Array(MAX_LINES * 6);
+        const lineGeom = new THREE.BufferGeometry();
+        lineGeom.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+        lineGeom.setDrawRange(0, 0);
+        neuralGroup.add(new THREE.LineSegments(lineGeom, new THREE.LineBasicMaterial({
+            color: 0x00c0d0, transparent: true, opacity: 0.1,
+            blending: THREE.AdditiveBlending, depthWrite: false,
+        })));
+
+        const CONN_DIST = 0.55, CONN_SQ = CONN_DIST * CONN_DIST;
+        const GRID_OFFSET = 20, GRID_STRIDE = 41;
+        const spatialGrid = new Map();
+
+        function updateLines() {
+            spatialGrid.clear();
+            for (let i = 0; i < PLEXUS_COUNT; i++) {
+                const ix = i*3;
+                const cx = Math.floor(plexusPositions[ix]   / CONN_DIST) + GRID_OFFSET;
+                const cy = Math.floor(plexusPositions[ix+1] / CONN_DIST) + GRID_OFFSET;
+                const cz = Math.floor(plexusPositions[ix+2] / CONN_DIST) + GRID_OFFSET;
+                const key = (cx * GRID_STRIDE + cy) * GRID_STRIDE + cz;
+                let cell = spatialGrid.get(key);
+                if (!cell) { cell=[]; spatialGrid.set(key,cell); }
+                cell.push(i);
+            }
+            let idx = 0;
+            for (let i = 0; i < PLEXUS_COUNT; i++) {
+                if (idx >= MAX_LINES) break;
+                const ix=i*3, ax=plexusPositions[ix], ay=plexusPositions[ix+1], az=plexusPositions[ix+2];
+                const cx=Math.floor(ax/CONN_DIST)+GRID_OFFSET;
+                const cy=Math.floor(ay/CONN_DIST)+GRID_OFFSET;
+                const cz=Math.floor(az/CONN_DIST)+GRID_OFFSET;
+                for (let dx=-1;dx<=1;dx++) for (let dy=-1;dy<=1;dy++) for (let dz=-1;dz<=1;dz++) {
+                    const key=((cx+dx)*GRID_STRIDE+(cy+dy))*GRID_STRIDE+(cz+dz);
+                    const cell=spatialGrid.get(key);
+                    if (!cell) continue;
+                    for (const j of cell) {
+                        if (j<=i || idx>=MAX_LINES) continue;
+                        const jx=j*3;
+                        const ddx=ax-plexusPositions[jx], ddy=ay-plexusPositions[jx+1], ddz=az-plexusPositions[jx+2];
+                        if (ddx*ddx+ddy*ddy+ddz*ddz < CONN_SQ) {
+                            const li=idx*6;
+                            linePositions[li]=ax;linePositions[li+1]=ay;linePositions[li+2]=az;
+                            linePositions[li+3]=plexusPositions[jx];linePositions[li+4]=plexusPositions[jx+1];linePositions[li+5]=plexusPositions[jx+2];
+                            idx++;
+                        }
+                    }
+                }
+            }
+            lineGeom.setDrawRange(0, idx*2);
+            lineGeom.attributes.position.needsUpdate = true;
+        }
+
+        /* Mouse parallax */
+        let mouseX=0, mouseY=0;
+        document.addEventListener('mousemove', e => {
+            mouseX=(e.clientX/window.innerWidth-0.5)*2;
+            mouseY=(e.clientY/window.innerHeight-0.5)*2;
+        });
+
+        /* ═══════════════════════════════════════════════════════
+           ANIMATION LOOP — 3-state orb
+           ═══════════════════════════════════════════════════════ */
+        const clock = new THREE.Clock();
+        let cSpeed = 1.0, cExpand = 1.0, cThinking = 0.0;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const dt = Math.min(clock.getDelta(), 0.05);
+            const t  = clock.getElapsedTime();
+
+            const target = STATE_TARGETS[vivieState] || STATE_TARGETS.idle;
+            cSpeed   += (target.speed  - cSpeed)   * 0.045;
+            cExpand  += (target.expand - cExpand)   * 0.04;
+
+            // Thinking tint — smoothly transitions amber tint in/out
+            const thinkTarget = vivieState === 'thinking' ? 1.0 : 0.0;
+            cThinking += (thinkTarget - cThinking) * 0.06;
+            coreMat.uniforms.uThinking.value = cThinking;
+
+            // Thinking pulse — orb breathes when thinking
+            const thinkPulse = vivieState === 'thinking'
+                ? 1.0 + Math.sin(t * 4.0) * 0.04
+                : 1.0;
+
+            for (let i = 0; i < CORE_COUNT; i++) {
+                coreTheta[i] += coreSpeed[i] * dt * cSpeed;
+                const r  = coreBaseR[i] * cExpand * thinkPulse;
+                const w  = Math.sin(t*0.6 + i*0.08) * 0.07 * cSpeed;
+                const p  = corePhi[i] + w;
+                const sp = Math.sin(p);
+                corePositions[i*3]   = r * sp * Math.cos(coreTheta[i]);
+                corePositions[i*3+1] = r * Math.cos(p);
+                corePositions[i*3+2] = r * sp * Math.sin(coreTheta[i]);
+            }
+            coreGeom.attributes.position.needsUpdate = true;
+
+            for (let i = 0; i < PLEXUS_COUNT; i++) {
+                plexusTheta[i] += plexusSpeed[i] * dt * cSpeed;
+                const w  = Math.sin(t*0.35 + i*0.15) * 0.1 * cSpeed;
+                const p  = plexusPhi[i] + w;
+                const sp = Math.sin(p);
+                plexusPositions[i*3]   = plexusBaseR[i] * sp * Math.cos(plexusTheta[i]);
+                plexusPositions[i*3+1] = plexusBaseR[i] * Math.cos(p);
+                plexusPositions[i*3+2] = plexusBaseR[i] * sp * Math.sin(plexusTheta[i]);
+            }
+            plexusGeom.attributes.position.needsUpdate = true;
+            updateLines();
+
+            neuralGroup.rotation.y  = t * 0.055;
+            neuralGroup.rotation.x  = Math.sin(t * 0.035) * 0.07;
+            camera.position.x += (mouseX * 0.25  - camera.position.x) * 0.03;
+            camera.position.y += (-mouseY * 0.15 - camera.position.y) * 0.03;
+            camera.lookAt(0, 0, 0);
+            composer.render();
+        }
+        animate();
+
+        /* Resize */
+        window.addEventListener('resize', () => {
+            const w=window.innerWidth, h=window.innerHeight;
+            camera.aspect=w/h; camera.updateProjectionMatrix();
+            renderer.setSize(w,h); composer.setSize(w,h);
+            const pr=Math.min(window.devicePixelRatio,2);
+            coreMat.uniforms.uPixelRatio.value=pr;
+            plexusMat.uniforms.uPixelRatio.value=pr;
+        });
+    </script>
+</body>
+</html>

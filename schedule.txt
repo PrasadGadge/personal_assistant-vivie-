@@ -1,0 +1,3 @@
+# Vivie Schedule File
+# Format: YYYY-MM-DD HH:MM | Event description
+

@@ -1,0 +1,252 @@
+ng-term memory about the user: ["Prasad is not currently
+[2026-04-15 18:45] Vivie: GOAL: Break down BBC News headlines for Prasad with strategic clarity. PHASE 1 — Quick Scan (2 min)  
+- Identify top 3 trending stories (politics, tech, global events)  
+- Flag any related to Prasad’s interests (AI, India, tech innovations)  
+
+PHASE 2 — Contextual Filter (3 min)  
+- Cross-reference 
+[2026-04-15 18:46] User: hello vivie
+Assistant: Hey Boss, —good to hear from you. What’s on your mind today?
+User: number van
+Assistant: Boss, Prasad, are you referring to a vehicle number or something specific about "van"? L
+[2026-04-15 18:46] Vivie: Phase 1 involves scanning BBC News for top 3 trending stories—focusing on tech, AI, or India-related updates for your interests, Prasad.
+[2026-04-15 18:46] User: hello vivie
+Assistant: Hey Boss, —good to hear from you. What’s on your mind today?
+User: number van
+Assistant: Boss, Prasad, are you referring to a vehicle number or something specific about "van"? L
+[2026-04-15 18:46] Vivie: Phase 1 involves scanning BBC News for top 3 trending stories—focusing on tech, AI, or India-related updates for your interests, Prasad.
+[2026-04-15 19:23] User: hello
+[2026-04-15 19:23] Vivie: Hey Prasad—always good to connect. What’s on your mind today?
+[2026-04-15 19:23] User: hello
+[2026-04-15 19:23] Vivie: Hey Prasad—always good to connect. What’s on your mind today?
+[2026-04-15 19:24] User: hello
+[2026-04-15 19:24] Vivie: Hey Prasad—good to hear from you. What would you like to focus on today?
+[2026-04-15 19:25] User: hello
+Assistant: Hey Prasad—always good to connect. What’s on your mind today?
+User: close
+Assistant: Hey Prasad—good to hear from you. What would you like to focus on today?
+
+
+Previous session contex
+[2026-04-15 19:25] Vivie: Hey Prasad—nothing major happening here, just ready to assist with whatever’s on your mind. Let me know how I can help.
+[2026-04-15 19:25] User: hello
+Assistant: Hey Prasad—always good to connect. What’s on your mind today?
+User: close
+Assistant: Hey Prasad—good to hear from you. What would you like to focus on today?
+
+
+Previous session contex
+[2026-04-15 19:25] Vivie: Hey Prasad—nothing major happening here, just ready to assist with whatever’s on your mind. Let me know how I can help.
+[2026-04-15 19:25] User: hello
+Assistant: Hey Prasad—always good to connect. What’s on your mind today?
+User: close
+Assistant: Hey Prasad—good to hear from you. What would you like to focus on today?
+User: nothing special wha
+[2026-04-15 19:25] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-15 19:25] User: hello
+Assistant: Hey Prasad—always good to connect. What’s on your mind today?
+User: close
+Assistant: Hey Prasad—good to hear from you. What would you like to focus on today?
+User: nothing special wha
+[2026-04-15 19:25] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-15 19:26] User: hello
+Assistant: Hey Prasad—always good to connect. What’s on your mind today?
+User: close
+Assistant: Hey Prasad—good to hear from you. What would you like to focus on today?
+User: nothing special wha
+[2026-04-15 19:26] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-15 19:26] User: hello
+Assistant: Hey Prasad—always good to connect. What’s on your mind today?
+User: close
+Assistant: Hey Prasad—good to hear from you. What would you like to focus on today?
+User: nothing special wha
+[2026-04-15 19:26] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-15 19:27] User: hello
+Assistant: Hey Prasad—always good to connect. What’s on your mind today?
+User: close
+Assistant: Hey Prasad—good to hear from you. What would you like to focus on today?
+User: nothing special wha
+[2026-04-15 19:27] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-15 19:27] User: hello
+Assistant: Hey Prasad—always good to connect. What’s on your mind today?
+User: close
+Assistant: Hey Prasad—good to hear from you. What would you like to focus on today?
+User: nothing special wha
+[2026-04-15 19:27] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-16 19:31] User: Previous Conversation Context:
+
+Primary Entity:  None
+Entity Type:     None
+Current Topic:   None
+Pending Action:  None
+
+Recent Conversation:
+
+
+Previous session context:
+[19:25] User: can you please p
+[2026-04-16 19:31] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-16 19:32] User: news
+[2026-04-16 19:32] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-16 19:32] User: memory load
+Assistant: I ran into an issue connecting. Please try again.
+User: news
+Assistant: I ran into an issue connecting. Please try again.
+
+
+Previous session context:
+[19:25] User: can you pleas
+[2026-04-16 19:32] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-16 19:32] User: memory load
+Assistant: I ran into an issue connecting. Please try again.
+User: news
+Assistant: I ran into an issue connecting. Please try again.
+
+
+Previous session context:
+[19:25] User: can you pleas
+[2026-04-16 19:32] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-16 19:39] User: kyon rishtedari karunga bhi kabhi bol de
+[2026-04-16 19:39] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-16 19:39] User: kyon rishtedari karunga bhi kabhi bol de
+[2026-04-16 19:39] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-16 19:39] User: kyon rishtedari karunga bhi kabhi bol de
+Assistant: Sure Boss, I ran into an issue connecting. Please try again.
+
+
+Previous session context:
+[19:25] User: can you please play a song for me
+[19:25] Viv
+[2026-04-16 19:39] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-16 19:39] User: kyon rishtedari karunga bhi kabhi bol de
+Assistant: Sure Boss, I ran into an issue connecting. Please try again.
+
+
+Previous session context:
+[19:25] User: can you please play a song for me
+[19:25] Viv
+[2026-04-16 19:39] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-16 19:39] User: kyon rishtedari karunga bhi kabhi bol de
+Assistant: Sure Boss, I ran into an issue connecting. Please try again.
+User: please try again
+Assistant: Sure Boss, I ran into an issue connecting. Please try
+[2026-04-16 19:39] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-16 19:39] User: kyon rishtedari karunga bhi kabhi bol de
+Assistant: Sure Boss, I ran into an issue connecting. Please try again.
+User: please try again
+Assistant: Sure Boss, I ran into an issue connecting. Please try
+[2026-04-16 19:39] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-16 19:39] User: kyon rishtedari karunga bhi kabhi bol de
+Assistant: Sure Boss, I ran into an issue connecting. Please try again.
+User: please try again
+Assistant: Sure Boss, I ran into an issue connecting. Please try
+[2026-04-16 19:39] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-16 19:39] User: kyon rishtedari karunga bhi kabhi bol de
+Assistant: Sure Boss, I ran into an issue connecting. Please try again.
+User: please try again
+Assistant: Sure Boss, I ran into an issue connecting. Please try
+[2026-04-16 19:39] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-16 19:40] User: please try again
+[2026-04-16 19:40] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-16 19:40] User: kyon rishtedari karunga bhi kabhi bol de
+Assistant: Sure Boss, I ran into an issue connecting. Please try again.
+User: please try again
+Assistant: Sure Boss, I ran into an issue connecting. Please try
+[2026-04-16 19:40] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-16 19:40] User: kyon rishtedari karunga bhi kabhi bol de
+Assistant: Sure Boss, I ran into an issue connecting. Please try again.
+User: please try again
+Assistant: Sure Boss, I ran into an issue connecting. Please try
+[2026-04-16 19:40] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-17 22:53] User: hello
+[2026-04-17 22:53] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-17 22:53] User: hello
+[2026-04-17 22:53] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-17 22:56] User: warning me about something important
+[2026-04-17 22:56] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-18 00:04] User: Analyze these conversations and identify topics where knowledge was lacking.
+
+Conversations:
+User asked: memory load
+Vivie answered: I ran into an issue connecting. Please try again.
+Intent: general
+[2026-04-18 00:04] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-18 00:04] User: Based on Vivie's performance today:
+
+Total responses: 5
+Positive reactions: 0
+Negative reactions: 0
+Satisfaction rate: 0.0%
+Topics covered today: ['hello', 'warning something important', 'close', 'try
+[2026-04-18 00:04] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-18 00:04] User: 1.1
+[2026-04-18 00:04] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-18 00:09] User: hello
+[2026-04-18 00:09] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-18 00:09] User: hello
+[2026-04-18 00:09] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-18 00:09] User: hello
+Assistant: Boss, I ran into an issue connecting. Please try again.
+
+
+User now asks:
+i went into an issue connecting
+
+Instructions:
+- If this relates to pending action, continue it.
+- If unrelate
+[2026-04-18 00:09] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-18 00:09] User: hello
+Assistant: Boss, I ran into an issue connecting. Please try again.
+
+
+User now asks:
+i went into an issue connecting
+
+Instructions:
+- If this relates to pending action, continue it.
+- If unrelate
+[2026-04-18 00:09] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-18 00:09] User: hello
+Assistant: Boss, I ran into an issue connecting. Please try again.
+User: i went into an issue connecting
+Assistant: Hey Boss, I ran into an issue connecting. Please try again.
+
+
+User now asks:
+p
+[2026-04-18 00:09] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-18 00:09] User: hello
+Assistant: Boss, I ran into an issue connecting. Please try again.
+User: i went into an issue connecting
+Assistant: Hey Boss, I ran into an issue connecting. Please try again.
+User: please try a
+[2026-04-18 00:09] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-18 00:09] User: hello
+Assistant: Boss, I ran into an issue connecting. Please try again.
+User: i went into an issue connecting
+Assistant: Hey Boss, I ran into an issue connecting. Please try again.
+User: please try a
+[2026-04-18 00:09] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-18 00:09] User: hello
+Assistant: Boss, I ran into an issue connecting. Please try again.
+User: i went into an issue connecting
+Assistant: Hey Boss, I ran into an issue connecting. Please try again.
+User: please try a
+[2026-04-18 00:09] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-18 00:09] User: i went into an issue connecting
+Assistant: Hey Boss, I ran into an issue connecting. Please try again.
+User: please try again
+Assistant: Boss, I ran into an issue connecting. Please try again.
+User: i
+[2026-04-18 00:09] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-18 00:15] User: hello
+[2026-04-18 00:15] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-18 00:15] User: hello
+[2026-04-18 00:15] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-19 15:51] User: User said: thank you so much. Respond naturally, warmly, and very briefly.
+[2026-04-19 15:51] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-22 15:08] User: air quality index level is two. thanks for watching.
+[2026-04-22 15:08] Vivie: I ran into an issue connecting. Please try again.
+[2026-04-22 15:08] User: air quality index level is two. thanks for watching.
+[2026-04-22 15:08] Vivie: I ran into an issue connecting. Please try again.

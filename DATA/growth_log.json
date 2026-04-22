@@ -1,0 +1,203 @@
+{
+  "events": [
+    {
+      "date": "2026-04-07",
+      "time": "00:17",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-10",
+      "time": "12:59",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-10",
+      "time": "17:47",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-10",
+      "time": "17:48",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-10",
+      "time": "17:53",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-10",
+      "time": "17:55",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-10",
+      "time": "18:08",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-12",
+      "time": "15:43",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-12",
+      "time": "15:56",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-12",
+      "time": "16:15",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-12",
+      "time": "19:18",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-12",
+      "time": "22:21",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-13",
+      "time": "16:19",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-14",
+      "time": "14:06",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-15",
+      "time": "18:40",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-15",
+      "time": "19:22",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-16",
+      "time": "19:28",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-17",
+      "time": "02:16",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-17",
+      "time": "18:04",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-17",
+      "time": "22:40",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-17",
+      "time": "22:49",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-17",
+      "time": "22:50",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-17",
+      "time": "22:51",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-17",
+      "time": "23:51",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-18",
+      "time": "00:04",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-18",
+      "time": "00:06",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-18",
+      "time": "00:08",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-18",
+      "time": "00:15",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-18",
+      "time": "12:51",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-19",
+      "time": "15:43",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-19",
+      "time": "15:48",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    },
+    {
+      "date": "2026-04-22",
+      "time": "15:07",
+      "type": "learned_topic",
+      "details": "Initial setup complete"
+    }
+  ],
+  "milestones": [
+    {
+      "title": "10 Topics Learned",
+      "description": "Vivie has autonomously learned 10 topics",
+      "date": "2026-04-12"
+    }
+  ]
+}

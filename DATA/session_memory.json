@@ -1,0 +1,127 @@
+{
+  "sessions": [
+    {
+      "id": 8,
+      "start": "2026-04-18T00:06:10.812080",
+      "end": null,
+      "turns": [],
+      "topics": [],
+      "summary": ""
+    },
+    {
+      "id": 8,
+      "start": "2026-04-18T00:08:26.159923",
+      "end": null,
+      "turns": [
+        {
+          "time": "00:09",
+          "user": "hello",
+          "assistant": "Boss, I ran into an issue connecting. Please try again.",
+          "intent": "chat"
+        },
+        {
+          "time": "00:09",
+          "user": "i went into an issue connecting",
+          "assistant": "Hey Boss, I ran into an issue connecting. Please try again.",
+          "intent": "chat"
+        },
+        {
+          "time": "00:09",
+          "user": "please try again",
+          "assistant": "Boss, I ran into an issue connecting. Please try again.",
+          "intent": "chat"
+        },
+        {
+          "time": "00:09",
+          "user": "i went into an",
+          "assistant": "Boss, I ran into an issue connecting. Please try again.",
+          "intent": "chat"
+        },
+        {
+          "time": "00:09",
+          "user": "please try again",
+          "assistant": "Sure Boss, I ran into an issue connecting. Please try again.",
+          "intent": "chat"
+        },
+        {
+          "time": "00:09",
+          "user": "i went into an issue connecting",
+          "assistant": "Hey Boss, I ran into an issue connecting. Please try again.",
+          "intent": "chat"
+        },
+        {
+          "time": "00:09",
+          "user": "please try again",
+          "assistant": "Sure Boss, I ran into an issue connecting. Please try again.",
+          "intent": "chat"
+        },
+        {
+          "time": "00:09",
+          "user": "i went into an issue connecting",
+          "assistant": "Boss, I ran into an issue connecting. Please try again.",
+          "intent": "chat"
+        }
+      ],
+      "topics": [],
+      "summary": ""
+    },
+    {
+      "id": 8,
+      "start": "2026-04-18T00:15:10.833097",
+      "end": "2026-04-18T00:15:54.067677",
+      "turns": [
+        {
+          "time": "00:15",
+          "user": "hello",
+          "assistant": "Boss, I ran into an issue connecting. Please try again.",
+          "intent": "chat"
+        }
+      ],
+      "topics": [],
+      "summary": "Session with 1 turns."
+    },
+    {
+      "id": 8,
+      "start": "2026-04-18T12:51:53.162495",
+      "end": null,
+      "turns": [],
+      "topics": [],
+      "summary": ""
+    },
+    {
+      "id": 8,
+      "start": "2026-04-19T15:43:58.409617",
+      "end": null,
+      "turns": [],
+      "topics": [],
+      "summary": ""
+    },
+    {
+      "id": 8,
+      "start": "2026-04-19T15:48:50.569915",
+      "end": null,
+      "turns": [],
+      "topics": [],
+      "summary": ""
+    },
+    {
+      "id": 8,
+      "start": "2026-04-22T15:07:12.610677",
+      "end": null,
+      "turns": [
+        {
+          "time": "15:08",
+          "user": "air quality index level is two. thanks for watching.",
+          "assistant": "Sure Boss, I ran into an issue connecting. Please try again.",
+          "intent": "chat"
+        }
+      ],
+      "topics": [],
+      "summary": ""
+    }
+  ],
+  "current_session": null,
+  "last_topic": "chat",
+  "last_entity": "air quality index level is two. thanks for watching.",
+  "unfinished_task": null
+}

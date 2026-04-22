@@ -1,0 +1,1002 @@
+[
+  {
+    "time": "2026-04-05T15:22:08.381422",
+    "action": "NEW FILE",
+    "details": "__init__.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:08.425899",
+    "action": "NEW FILE",
+    "details": "test_compose.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:08.466265",
+    "action": "NEW FILE",
+    "details": "test_loader.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:08.508079",
+    "action": "NEW FILE",
+    "details": "__init__.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:08.547500",
+    "action": "NEW FILE",
+    "details": "test_mount_security.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:08.577703",
+    "action": "NEW FILE",
+    "details": "test_runner.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:08.609642",
+    "action": "NEW FILE",
+    "details": "test_wasm_runner.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:08.639827",
+    "action": "NEW FILE",
+    "details": "__init__.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:08.680698",
+    "action": "NEW FILE",
+    "details": "test_scheduler.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:08.719622",
+    "action": "NEW FILE",
+    "details": "test_store.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:08.770142",
+    "action": "NEW FILE",
+    "details": "test_tools.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:08.803952",
+    "action": "NEW FILE",
+    "details": "__init__.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:08.844066",
+    "action": "NEW FILE",
+    "details": "test_sdk.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:08.882984",
+    "action": "NEW FILE",
+    "details": "test_system.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:08.927545",
+    "action": "NEW FILE",
+    "details": "__init__.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:08.972059",
+    "action": "NEW FILE",
+    "details": "test_audit.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.017469",
+    "action": "NEW FILE",
+    "details": "test_boundary_guard.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.048708",
+    "action": "NEW FILE",
+    "details": "test_capabilities.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.084344",
+    "action": "NEW FILE",
+    "details": "test_credential_stripper.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.127206",
+    "action": "NEW FILE",
+    "details": "test_file_permissions.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.161097",
+    "action": "NEW FILE",
+    "details": "test_file_policy.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.207332",
+    "action": "NEW FILE",
+    "details": "test_guardrails.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.246789",
+    "action": "NEW FILE",
+    "details": "test_injection_scanner.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.279665",
+    "action": "NEW FILE",
+    "details": "test_log_sanitization.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.315637",
+    "action": "NEW FILE",
+    "details": "test_merkle_audit.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.357626",
+    "action": "NEW FILE",
+    "details": "test_network_defaults.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.392114",
+    "action": "NEW FILE",
+    "details": "test_rate_limiter.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.435415",
+    "action": "NEW FILE",
+    "details": "test_scanner.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.465900",
+    "action": "NEW FILE",
+    "details": "test_security_profiles.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.498700",
+    "action": "NEW FILE",
+    "details": "test_security_wiring.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.533656",
+    "action": "NEW FILE",
+    "details": "test_setup_security.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.572496",
+    "action": "NEW FILE",
+    "details": "test_severity_policy.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.610290",
+    "action": "NEW FILE",
+    "details": "test_signing.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.649254",
+    "action": "NEW FILE",
+    "details": "test_ssrf.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.687992",
+    "action": "NEW FILE",
+    "details": "test_subprocess_sandbox.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.720776",
+    "action": "NEW FILE",
+    "details": "test_taint.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.762576",
+    "action": "NEW FILE",
+    "details": "test_tool_confirmation.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.802160",
+    "action": "NEW FILE",
+    "details": "test_webhook_validation.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.838536",
+    "action": "NEW FILE",
+    "details": "__init__.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.878369",
+    "action": "NEW FILE",
+    "details": "test_agent_manager_routes.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.917056",
+    "action": "NEW FILE",
+    "details": "test_api_routes.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:09.966736",
+    "action": "NEW FILE",
+    "details": "test_auth_middleware.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.000234",
+    "action": "NEW FILE",
+    "details": "test_channel_bridge.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.038495",
+    "action": "NEW FILE",
+    "details": "test_channel_bridge_deep_research.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.069474",
+    "action": "NEW FILE",
+    "details": "test_channel_routes.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.108774",
+    "action": "NEW FILE",
+    "details": "test_connectors_router.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.149922",
+    "action": "NEW FILE",
+    "details": "test_deep_research_tools_wiring.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.179957",
+    "action": "NEW FILE",
+    "details": "test_mcp_tools_cache.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.214537",
+    "action": "NEW FILE",
+    "details": "test_middleware.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.254098",
+    "action": "NEW FILE",
+    "details": "test_models_pydantic.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.289054",
+    "action": "NEW FILE",
+    "details": "test_model_management.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.319764",
+    "action": "NEW FILE",
+    "details": "test_pwa_serving.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.356375",
+    "action": "NEW FILE",
+    "details": "test_recommended_model.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.390990",
+    "action": "NEW FILE",
+    "details": "test_routes.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.430631",
+    "action": "NEW FILE",
+    "details": "test_sendblue_webhook.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.465050",
+    "action": "NEW FILE",
+    "details": "test_session_store.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.501970",
+    "action": "NEW FILE",
+    "details": "test_speech_routes.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.530690",
+    "action": "NEW FILE",
+    "details": "test_tools_endpoint.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.560789",
+    "action": "NEW FILE",
+    "details": "test_webhook_routes.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.598195",
+    "action": "NEW FILE",
+    "details": "test_websocket.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.631774",
+    "action": "NEW FILE",
+    "details": "test_ws_bridge.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.670282",
+    "action": "NEW FILE",
+    "details": "__init__.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.709660",
+    "action": "NEW FILE",
+    "details": "test_compression.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.744393",
+    "action": "NEW FILE",
+    "details": "test_session.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.787399",
+    "action": "NEW FILE",
+    "details": "test_wire_channel_history.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.822213",
+    "action": "NEW FILE",
+    "details": "test_bundled_skills.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.859454",
+    "action": "NEW FILE",
+    "details": "test_skills.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.899141",
+    "action": "NEW FILE",
+    "details": "__init__.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.933184",
+    "action": "NEW FILE",
+    "details": "test_config.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:10.970939",
+    "action": "NEW FILE",
+    "details": "test_deepgram.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.013361",
+    "action": "NEW FILE",
+    "details": "test_discovery.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.053672",
+    "action": "NEW FILE",
+    "details": "test_faster_whisper.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.088070",
+    "action": "NEW FILE",
+    "details": "test_openai_whisper.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.118846",
+    "action": "NEW FILE",
+    "details": "test_stubs.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.202478",
+    "action": "NEW FILE",
+    "details": "test_system_integration.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.234134",
+    "action": "NEW FILE",
+    "details": "__init__.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.259027",
+    "action": "NEW FILE",
+    "details": "test_aggregator.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.292423",
+    "action": "NEW FILE",
+    "details": "test_batch.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.330071",
+    "action": "NEW FILE",
+    "details": "test_derived_metrics.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.370065",
+    "action": "NEW FILE",
+    "details": "test_efficiency.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.403856",
+    "action": "NEW FILE",
+    "details": "test_energy_amd.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.451269",
+    "action": "NEW FILE",
+    "details": "test_energy_apple.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.506630",
+    "action": "NEW FILE",
+    "details": "test_energy_monitor.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.543057",
+    "action": "NEW FILE",
+    "details": "test_energy_nvidia.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.590347",
+    "action": "NEW FILE",
+    "details": "test_energy_rapl.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.635844",
+    "action": "NEW FILE",
+    "details": "test_energy_wiring.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.693929",
+    "action": "NEW FILE",
+    "details": "test_flops_new.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.721425",
+    "action": "NEW FILE",
+    "details": "test_gpu_monitor.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.765668",
+    "action": "NEW FILE",
+    "details": "test_instrumented_engine.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.802733",
+    "action": "NEW FILE",
+    "details": "test_itl_metrics.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.836428",
+    "action": "NEW FILE",
+    "details": "test_itl_new.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.879249",
+    "action": "NEW FILE",
+    "details": "test_phase_energy.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.915207",
+    "action": "NEW FILE",
+    "details": "test_phase_metrics_new.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.951142",
+    "action": "NEW FILE",
+    "details": "test_session.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:11.989639",
+    "action": "NEW FILE",
+    "details": "test_steady_state.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.023507",
+    "action": "NEW FILE",
+    "details": "test_store.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.071170",
+    "action": "NEW FILE",
+    "details": "test_store_tokens_per_joule.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.113312",
+    "action": "NEW FILE",
+    "details": "test_telemetry_record.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.145954",
+    "action": "NEW FILE",
+    "details": "test_vllm_metrics.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.183772",
+    "action": "NEW FILE",
+    "details": "test_wrapper.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.222830",
+    "action": "NEW FILE",
+    "details": "__init__.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.257955",
+    "action": "NEW FILE",
+    "details": "test_agent_templates.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.303393",
+    "action": "NEW FILE",
+    "details": "__init__.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.349389",
+    "action": "NEW FILE",
+    "details": "test_environment.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.393500",
+    "action": "NEW FILE",
+    "details": "test_grpo_trainer.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.432949",
+    "action": "NEW FILE",
+    "details": "test_orchestrator_structured.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.470005",
+    "action": "NEW FILE",
+    "details": "test_policy_model.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.517460",
+    "action": "NEW FILE",
+    "details": "test_prompt_registry.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.555011",
+    "action": "NEW FILE",
+    "details": "test_reward.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.599215",
+    "action": "NEW FILE",
+    "details": "test_sft_trainer.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.640605",
+    "action": "NEW FILE",
+    "details": "test_types.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.674874",
+    "action": "NEW FILE",
+    "details": "__init__.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.723203",
+    "action": "NEW FILE",
+    "details": "test_agent_tools.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.765278",
+    "action": "NEW FILE",
+    "details": "test_apply_patch.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.802163",
+    "action": "NEW FILE",
+    "details": "test_audio_tool.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.838361",
+    "action": "NEW FILE",
+    "details": "test_browser.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.876454",
+    "action": "NEW FILE",
+    "details": "test_browser_axtree.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.907771",
+    "action": "NEW FILE",
+    "details": "test_calculator.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.951874",
+    "action": "NEW FILE",
+    "details": "test_channel_tools.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:12.990857",
+    "action": "NEW FILE",
+    "details": "test_code_interpreter.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.030207",
+    "action": "NEW FILE",
+    "details": "test_code_interpreter_docker.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.066733",
+    "action": "NEW FILE",
+    "details": "test_db_query.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.105848",
+    "action": "NEW FILE",
+    "details": "test_file_read.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.137432",
+    "action": "NEW FILE",
+    "details": "test_file_write.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.173472",
+    "action": "NEW FILE",
+    "details": "test_git_tool.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.211357",
+    "action": "NEW FILE",
+    "details": "test_http_request.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.248069",
+    "action": "NEW FILE",
+    "details": "test_image_tool.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.282585",
+    "action": "NEW FILE",
+    "details": "test_knowledge_graph.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.320140",
+    "action": "NEW FILE",
+    "details": "test_knowledge_search.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.356747",
+    "action": "NEW FILE",
+    "details": "test_knowledge_sql.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.398002",
+    "action": "NEW FILE",
+    "details": "test_llm_tool.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.448681",
+    "action": "NEW FILE",
+    "details": "test_mcp_adapter.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.520125",
+    "action": "NEW FILE",
+    "details": "test_memory_manage.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.583141",
+    "action": "NEW FILE",
+    "details": "test_pdf_tool.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.627725",
+    "action": "NEW FILE",
+    "details": "test_repl.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.652063",
+    "action": "NEW FILE",
+    "details": "test_retrieval.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.689371",
+    "action": "NEW FILE",
+    "details": "test_scan_chunks.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.730282",
+    "action": "NEW FILE",
+    "details": "test_shell_exec.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.767704",
+    "action": "NEW FILE",
+    "details": "test_skill_manage.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.804595",
+    "action": "NEW FILE",
+    "details": "test_storage_stubs.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.852330",
+    "action": "NEW FILE",
+    "details": "test_storage_tools.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.899039",
+    "action": "NEW FILE",
+    "details": "test_stubs.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.943893",
+    "action": "NEW FILE",
+    "details": "test_templates.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:13.978254",
+    "action": "NEW FILE",
+    "details": "test_think.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:14.018155",
+    "action": "NEW FILE",
+    "details": "test_tool_descriptions.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:14.056309",
+    "action": "NEW FILE",
+    "details": "test_tool_registration.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:14.094475",
+    "action": "NEW FILE",
+    "details": "test_tool_timeout.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:14.137659",
+    "action": "NEW FILE",
+    "details": "test_user_profile_manage.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:14.171821",
+    "action": "NEW FILE",
+    "details": "test_web_search.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:14.213177",
+    "action": "NEW FILE",
+    "details": "__init__.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:14.253252",
+    "action": "NEW FILE",
+    "details": "test_analyzer.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:14.292688",
+    "action": "NEW FILE",
+    "details": "test_analyzer_energy.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:14.335020",
+    "action": "NEW FILE",
+    "details": "test_collector.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:14.377446",
+    "action": "NEW FILE",
+    "details": "test_store.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:14.418947",
+    "action": "NEW FILE",
+    "details": "test_store_fts.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:14.455039",
+    "action": "NEW FILE",
+    "details": "test_types.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:14.513092",
+    "action": "NEW FILE",
+    "details": "__init__.py in Downloads"
+  },
+  {
+    "time": "2026-04-05T15:22:14.558515",
+    "action": "NEW FILE",
+    "details": "test_workflow.py in Downloads"
+  },
+  {
+    "time": "2026-04-06T23:39:22.437631",
+    "action": "NEW FILE",
+    "details": "Software Engineering & Testing Exam Prep.pdf in Downloads"
+  },
+  {
+    "time": "2026-04-10T12:59:39.829897",
+    "action": "NEW FILE",
+    "details": "prasad AG.docx in Downloads"
+  },
+  {
+    "time": "2026-04-10T12:59:39.841964",
+    "action": "NEW FILE",
+    "details": "sanskriti.docx in Downloads"
+  },
+  {
+    "time": "2026-04-12T15:44:19.519271",
+    "action": "NEW FILE",
+    "details": "agent_router.py in Downloads"
+  },
+  {
+    "time": "2026-04-12T15:44:19.540704",
+    "action": "NEW FILE",
+    "details": "decision_engine.py in Downloads"
+  },
+  {
+    "time": "2026-04-12T15:44:19.556293",
+    "action": "NEW FILE",
+    "details": "Fast_DF_TTS.py in Downloads"
+  },
+  {
+    "time": "2026-04-12T15:44:19.582675",
+    "action": "NEW FILE",
+    "details": "Fast_DF_TTS_1.py in Downloads"
+  },
+  {
+    "time": "2026-04-12T15:44:19.599096",
+    "action": "NEW FILE",
+    "details": "Fast_DF_TTS_2.py in Downloads"
+  },
+  {
+    "time": "2026-04-12T15:44:19.618060",
+    "action": "NEW FILE",
+    "details": "main_brain.py in Downloads"
+  },
+  {
+    "time": "2026-04-12T15:44:19.641182",
+    "action": "NEW FILE",
+    "details": "main_brain_1.py in Downloads"
+  },
+  {
+    "time": "2026-04-12T15:44:19.659356",
+    "action": "NEW FILE",
+    "details": "PRASAD-GADGE-Participant-Certificate.pdf in Downloads"
+  },
+  {
+    "time": "2026-04-12T15:44:19.677492",
+    "action": "NEW FILE",
+    "details": "proactive_engine.py in Downloads"
+  },
+  {
+    "time": "2026-04-12T15:44:19.696120",
+    "action": "NEW FILE",
+    "details": "tool_router.py in Downloads"
+  },
+  {
+    "time": "2026-04-12T15:44:19.713030",
+    "action": "NEW FILE",
+    "details": "voice_state.py in Downloads"
+  },
+  {
+    "time": "2026-04-12T16:15:24.429723",
+    "action": "NEW FILE",
+    "details": "Fast_DF_TTS_3.py in Downloads"
+  },
+  {
+    "time": "2026-04-12T16:15:24.446696",
+    "action": "NEW FILE",
+    "details": "log_config.py in Downloads"
+  },
+  {
+    "time": "2026-04-12T19:19:10.934953",
+    "action": "NEW FILE",
+    "details": "response_formatter.py in Downloads"
+  },
+  {
+    "time": "2026-04-12T22:21:57.188807",
+    "action": "NEW FILE",
+    "details": "practical 1m_merged (1).docx in Downloads"
+  },
+  {
+    "time": "2026-04-12T22:21:57.201436",
+    "action": "NEW FILE",
+    "details": "self_awareness_engine.py in Downloads"
+  },
+  {
+    "time": "2026-04-13T16:19:32.345510",
+    "action": "NEW FILE",
+    "details": "api_brain.py in Downloads"
+  },
+  {
+    "time": "2026-04-13T16:19:32.355456",
+    "action": "NEW FILE",
+    "details": "Automation_brain.py in Downloads"
+  },
+  {
+    "time": "2026-04-13T16:19:32.377682",
+    "action": "NEW FILE",
+    "details": "cl_brain.py in Downloads"
+  },
+  {
+    "time": "2026-04-13T16:19:32.393369",
+    "action": "NEW FILE",
+    "details": "cl_brain_1.py in Downloads"
+  },
+  {
+    "time": "2026-04-13T16:19:32.406872",
+    "action": "NEW FILE",
+    "details": "streaming_patch.py in Downloads"
+  },
+  {
+    "time": "2026-04-14T14:06:49.393162",
+    "action": "NEW FILE",
+    "details": "ui_launcher_patch.py in Downloads"
+  },
+  {
+    "time": "2026-04-14T14:06:49.410399",
+    "action": "NEW FILE",
+    "details": "ui_launcher_patch_1.py in Downloads"
+  },
+  {
+    "time": "2026-04-14T14:06:49.433820",
+    "action": "NEW FILE",
+    "details": "ui_launcher_patch_2.py in Downloads"
+  },
+  {
+    "time": "2026-04-15T18:40:48.691755",
+    "action": "NEW FILE",
+    "details": "app.py in Downloads"
+  },
+  {
+    "time": "2026-04-15T18:40:48.722927",
+    "action": "NEW FILE",
+    "details": "Vivie_UI.py in Downloads"
+  },
+  {
+    "time": "2026-04-16T19:28:56.707025",
+    "action": "NEW FILE",
+    "details": "real_data_patch.py in Downloads"
+  },
+  {
+    "time": "2026-04-16T19:28:56.743101",
+    "action": "NEW FILE",
+    "details": "Vivie_UI_1.py in Downloads"
+  },
+  {
+    "time": "2026-04-16T19:28:56.798594",
+    "action": "NEW FILE",
+    "details": "Vivie_UI_2.py in Downloads"
+  },
+  {
+    "time": "2026-04-17T02:17:09.106239",
+    "action": "NEW FILE",
+    "details": "marvels-spider-man-3840x2160-9850.jpg in Downloads"
+  },
+  {
+    "time": "2026-04-17T02:17:09.130155",
+    "action": "NEW FILE",
+    "details": "marvels-spider-man-miles-morales-gameplay-playstation-5-3840x2160-3446.jpg in Downloads"
+  },
+  {
+    "time": "2026-04-17T02:17:09.152837",
+    "action": "NEW FILE",
+    "details": "marvels-spider-man-playstation-4-playstation-5-pc-games-5120x2879-8937.jpg in Downloads"
+  },
+  {
+    "time": "2026-04-17T02:17:09.173883",
+    "action": "NEW FILE",
+    "details": "spider-man-5120x2880-21603.jpg in Downloads"
+  },
+  {
+    "time": "2026-04-18T00:04:12.178265",
+    "action": "ROUTINE STARTED",
+    "details": "Midnight Learning"
+  },
+  {
+    "time": "2026-04-18T00:04:12.213191",
+    "action": "AUTO STARTED",
+    "details": "Learning session"
+  },
+  {
+    "time": "2026-04-18T00:04:12.255777",
+    "action": "ROUTINE COMPLETED",
+    "details": "Midnight Learning"
+  },
+  {
+    "time": "2026-04-19T15:44:23.558069",
+    "action": "NEW FILE",
+    "details": "vivie_stt.py in Downloads"
+  },
+  {
+    "time": "2026-04-22T15:07:29.415560",
+    "action": "NEW FILE",
+    "details": "CPP_Full_Practical_With_Explanation.pdf in Downloads"
+  },
+  {
+    "time": "2026-04-22T15:07:29.503081",
+    "action": "NEW FILE",
+    "details": "CPP_Practical_Codes.pdf in Downloads"
+  }
+]

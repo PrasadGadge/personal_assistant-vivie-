@@ -1,0 +1,20 @@
+{
+  // Use the project virtual environment Python interpreter
+  "python.defaultInterpreterPath": "C:/Users/dell/OneDrive/Desktop/Vivie_v1/venv/Scripts/python.exe",
+
+  // Ensure Pylance/Python analysis can resolve local imports
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}",
+    "${workspaceFolder}/Core_structure",
+    "${workspaceFolder}/Brain",
+    "${workspaceFolder}/Features",
+    "${workspaceFolder}/knowledge_core"
+  ],
+
+  // Use the .env file if present
+  "python.envFile": "${workspaceFolder}/.env",
+
+  // Keep type checking moderate
+  "python.analysis.typeCheckingMode": "off",
+  "python-envs.defaultEnvManager": "ms-python.python:system"
+}

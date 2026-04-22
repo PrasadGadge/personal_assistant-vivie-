@@ -1,0 +1,492 @@
+{
+  "chat|10:00": {
+    "action": "chat",
+    "slot": "10:00",
+    "hour": 10,
+    "context": "describe yourself",
+    "count": 1,
+    "days": [
+      "2026-04-03"
+    ],
+    "weekdays": [
+      "Friday"
+    ],
+    "last_seen": "2026-04-03T10:16:35.932230"
+  },
+  "automation|10:00": {
+    "action": "automation",
+    "slot": "10:00",
+    "hour": 10,
+    "context": "close",
+    "count": 1,
+    "days": [
+      "2026-04-03"
+    ],
+    "weekdays": [
+      "Friday"
+    ],
+    "last_seen": "2026-04-03T10:18:23.019095"
+  },
+  "chat|14:00": {
+    "action": "chat",
+    "slot": "14:00",
+    "hour": 14,
+    "context": "hey vivie how are you",
+    "count": 9,
+    "days": [
+      "2026-04-03",
+      "2026-04-14"
+    ],
+    "weekdays": [
+      "Friday",
+      "Tuesday"
+    ],
+    "last_seen": "2026-04-14T14:21:35.581777"
+  },
+  "automation|14:00": {
+    "action": "automation",
+    "slot": "14:00",
+    "hour": 14,
+    "context": "how you will greet me daily",
+    "count": 1,
+    "days": [
+      "2026-04-03"
+    ],
+    "weekdays": [
+      "Friday"
+    ],
+    "last_seen": "2026-04-03T14:26:02.528982"
+  },
+  "chat|15:00": {
+    "action": "chat",
+    "slot": "15:00",
+    "hour": 15,
+    "context": "hey vivie what is the current time",
+    "count": 26,
+    "days": [
+      "2026-04-03",
+      "2026-04-05",
+      "2026-04-12",
+      "2026-04-19",
+      "2026-04-22"
+    ],
+    "weekdays": [
+      "Friday",
+      "Sunday",
+      "Wednesday"
+    ],
+    "last_seen": "2026-04-22T15:08:36.946420"
+  },
+  "automation|15:00": {
+    "action": "automation",
+    "slot": "15:00",
+    "hour": 15,
+    "context": "check the system status",
+    "count": 5,
+    "days": [
+      "2026-04-03",
+      "2026-04-12"
+    ],
+    "weekdays": [
+      "Friday",
+      "Sunday"
+    ],
+    "last_seen": "2026-04-12T15:59:05.307280"
+  },
+  "chat|16:00": {
+    "action": "chat",
+    "slot": "16:00",
+    "hour": 16,
+    "context": "hey vivie",
+    "count": 19,
+    "days": [
+      "2026-04-04",
+      "2026-04-12",
+      "2026-04-13"
+    ],
+    "weekdays": [
+      "Saturday",
+      "Sunday",
+      "Monday"
+    ],
+    "last_seen": "2026-04-13T16:26:29.418893"
+  },
+  "file_creation|16:00": {
+    "action": "file_creation",
+    "slot": "16:00",
+    "hour": 16,
+    "context": "write python code for print hello",
+    "count": 1,
+    "days": [
+      "2026-04-04"
+    ],
+    "weekdays": [
+      "Saturday"
+    ],
+    "last_seen": "2026-04-04T16:56:29.158690"
+  },
+  "automation|16:00": {
+    "action": "automation",
+    "slot": "16:00",
+    "hour": 16,
+    "context": "close",
+    "count": 4,
+    "days": [
+      "2026-04-04",
+      "2026-04-12",
+      "2026-04-13"
+    ],
+    "weekdays": [
+      "Saturday",
+      "Sunday",
+      "Monday"
+    ],
+    "last_seen": "2026-04-13T16:26:47.089592"
+  },
+  "chat|20:00": {
+    "action": "chat",
+    "slot": "20:00",
+    "hour": 20,
+    "context": "hello",
+    "count": 3,
+    "days": [
+      "2026-04-04"
+    ],
+    "weekdays": [
+      "Saturday"
+    ],
+    "last_seen": "2026-04-04T20:58:09.888444"
+  },
+  "automation|20:00": {
+    "action": "automation",
+    "slot": "20:00",
+    "hour": 20,
+    "context": "open youtube",
+    "count": 2,
+    "days": [
+      "2026-04-04"
+    ],
+    "weekdays": [
+      "Saturday"
+    ],
+    "last_seen": "2026-04-04T20:58:29.738085"
+  },
+  "chat|01:00": {
+    "action": "chat",
+    "slot": "01:00",
+    "hour": 1,
+    "context": "hello",
+    "count": 5,
+    "days": [
+      "2026-04-06"
+    ],
+    "weekdays": [
+      "Monday"
+    ],
+    "last_seen": "2026-04-06T01:59:45.745462"
+  },
+  "automation|01:00": {
+    "action": "automation",
+    "slot": "01:00",
+    "hour": 1,
+    "context": "close",
+    "count": 1,
+    "days": [
+      "2026-04-06"
+    ],
+    "weekdays": [
+      "Monday"
+    ],
+    "last_seen": "2026-04-06T01:42:56.432358"
+  },
+  "chat|02:00": {
+    "action": "chat",
+    "slot": "02:00",
+    "hour": 2,
+    "context": "abv how are you feeling",
+    "count": 17,
+    "days": [
+      "2026-04-06"
+    ],
+    "weekdays": [
+      "Monday"
+    ],
+    "last_seen": "2026-04-06T02:46:54.354073"
+  },
+  "automation|02:00": {
+    "action": "automation",
+    "slot": "02:00",
+    "hour": 2,
+    "context": "pause abc is an clear and functioning",
+    "count": 3,
+    "days": [
+      "2026-04-06"
+    ],
+    "weekdays": [
+      "Monday"
+    ],
+    "last_seen": "2026-04-06T02:47:31.134984"
+  },
+  "file_creation|02:00": {
+    "action": "file_creation",
+    "slot": "02:00",
+    "hour": 2,
+    "context": "write a python function to sort a list",
+    "count": 1,
+    "days": [
+      "2026-04-06"
+    ],
+    "weekdays": [
+      "Monday"
+    ],
+    "last_seen": "2026-04-06T02:46:03.922033"
+  },
+  "chat|23:00": {
+    "action": "chat",
+    "slot": "23:00",
+    "hour": 23,
+    "context": "hello",
+    "count": 2,
+    "days": [
+      "2026-04-06"
+    ],
+    "weekdays": [
+      "Monday"
+    ],
+    "last_seen": "2026-04-06T23:40:49.565886"
+  },
+  "automation|23:00": {
+    "action": "automation",
+    "slot": "23:00",
+    "hour": 23,
+    "context": "open youtube",
+    "count": 1,
+    "days": [
+      "2026-04-06"
+    ],
+    "weekdays": [
+      "Monday"
+    ],
+    "last_seen": "2026-04-06T23:41:46.966819"
+  },
+  "chat|00:00": {
+    "action": "chat",
+    "slot": "00:00",
+    "hour": 0,
+    "context": "what can you do",
+    "count": 19,
+    "days": [
+      "2026-04-07",
+      "2026-04-18"
+    ],
+    "weekdays": [
+      "Tuesday",
+      "Saturday"
+    ],
+    "last_seen": "2026-04-18T00:15:52.553700"
+  },
+  "weather|16:00": {
+    "action": "weather",
+    "slot": "16:00",
+    "hour": 16,
+    "context": "check weather",
+    "count": 1,
+    "days": [
+      "2026-04-12"
+    ],
+    "weekdays": [
+      "Sunday"
+    ],
+    "last_seen": "2026-04-12T16:16:35.237589"
+  },
+  "chat|19:00": {
+    "action": "chat",
+    "slot": "19:00",
+    "hour": 19,
+    "context": "hello",
+    "count": 13,
+    "days": [
+      "2026-04-12",
+      "2026-04-15",
+      "2026-04-16"
+    ],
+    "weekdays": [
+      "Sunday",
+      "Wednesday",
+      "Thursday"
+    ],
+    "last_seen": "2026-04-16T19:39:42.867360"
+  },
+  "chat|22:00": {
+    "action": "chat",
+    "slot": "22:00",
+    "hour": 22,
+    "context": "hello",
+    "count": 3,
+    "days": [
+      "2026-04-12",
+      "2026-04-17"
+    ],
+    "weekdays": [
+      "Sunday",
+      "Friday"
+    ],
+    "last_seen": "2026-04-17T22:53:09.346760"
+  },
+  "automation|22:00": {
+    "action": "automation",
+    "slot": "22:00",
+    "hour": 22,
+    "context": "ok then close",
+    "count": 1,
+    "days": [
+      "2026-04-12"
+    ],
+    "weekdays": [
+      "Sunday"
+    ],
+    "last_seen": "2026-04-12T22:24:09.536283"
+  },
+  "internet_speed|16:00": {
+    "action": "internet_speed",
+    "slot": "16:00",
+    "hour": 16,
+    "context": "airtel about",
+    "count": 1,
+    "days": [
+      "2026-04-13"
+    ],
+    "weekdays": [
+      "Monday"
+    ],
+    "last_seen": "2026-04-13T16:20:51.221033"
+  },
+  "chat|18:00": {
+    "action": "chat",
+    "slot": "18:00",
+    "hour": 18,
+    "context": "hello vivie",
+    "count": 7,
+    "days": [
+      "2026-04-15"
+    ],
+    "weekdays": [
+      "Wednesday"
+    ],
+    "last_seen": "2026-04-15T18:45:59.240102"
+  },
+  "image_generation|18:00": {
+    "action": "image_generation",
+    "slot": "18:00",
+    "hour": 18,
+    "context": "dj designs",
+    "count": 1,
+    "days": [
+      "2026-04-15"
+    ],
+    "weekdays": [
+      "Wednesday"
+    ],
+    "last_seen": "2026-04-15T18:46:33.849942"
+  },
+  "automation|19:00": {
+    "action": "automation",
+    "slot": "19:00",
+    "hour": 19,
+    "context": "open youtube",
+    "count": 8,
+    "days": [
+      "2026-04-15",
+      "2026-04-16"
+    ],
+    "weekdays": [
+      "Wednesday",
+      "Thursday"
+    ],
+    "last_seen": "2026-04-16T19:40:19.402295"
+  },
+  "internet_speed|19:00": {
+    "action": "internet_speed",
+    "slot": "19:00",
+    "hour": 19,
+    "context": "i went into an issue connecting",
+    "count": 1,
+    "days": [
+      "2026-04-16"
+    ],
+    "weekdays": [
+      "Thursday"
+    ],
+    "last_seen": "2026-04-16T19:40:16.651004"
+  },
+  "weather|22:00": {
+    "action": "weather",
+    "slot": "22:00",
+    "hour": 22,
+    "context": "how is the weather",
+    "count": 1,
+    "days": [
+      "2026-04-17"
+    ],
+    "weekdays": [
+      "Friday"
+    ],
+    "last_seen": "2026-04-17T22:54:48.428420"
+  },
+  "alarm|22:00": {
+    "action": "alarm",
+    "slot": "22:00",
+    "hour": 22,
+    "context": "warning me about something important",
+    "count": 1,
+    "days": [
+      "2026-04-17"
+    ],
+    "weekdays": [
+      "Friday"
+    ],
+    "last_seen": "2026-04-17T22:56:28.720008"
+  },
+  "file_creation|00:00": {
+    "action": "file_creation",
+    "slot": "00:00",
+    "hour": 0,
+    "context": "bts xml",
+    "count": 1,
+    "days": [
+      "2026-04-18"
+    ],
+    "weekdays": [
+      "Saturday"
+    ],
+    "last_seen": "2026-04-18T00:04:33.931980"
+  },
+  "weather|00:00": {
+    "action": "weather",
+    "slot": "00:00",
+    "hour": 0,
+    "context": "check whether in pune",
+    "count": 2,
+    "days": [
+      "2026-04-18"
+    ],
+    "weekdays": [
+      "Saturday"
+    ],
+    "last_seen": "2026-04-18T00:06:49.828812"
+  },
+  "weather|15:00": {
+    "action": "weather",
+    "slot": "15:00",
+    "hour": 15,
+    "context": "check whether it's in funer.",
+    "count": 1,
+    "days": [
+      "2026-04-22"
+    ],
+    "weekdays": [
+      "Wednesday"
+    ],
+    "last_seen": "2026-04-22T15:08:10.473387"
+  }
+}
