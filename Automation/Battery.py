@@ -1,15 +1,18 @@
 # pip install psutil
 
-import psutil
 import time
-from TextToSpeech.Fast_DF_TTS import speak
 import threading
+import random
+
+from TextToSpeech.Fast_DF_TTS import speak
 from Features.Alert import Alert
 
-
-battery = psutil.sensors_battery()
-
-import random
+try:
+    import psutil
+    _HAS_PSUTIL = True
+except Exception:
+    psutil = None
+    _HAS_PSUTIL = False
 
 BATTERY_GOOD_LINES = [
     "Everything looks stable, Boss.",
@@ -40,8 +43,15 @@ BATTERY_CRITICAL_LINES = [
 ]
 
 def battery_Alert():
+    if not _HAS_PSUTIL:
+        print("[Battery] psutil not available; skipping battery alerts.")
+        return
     while True:
         time.sleep(3)
+        battery = psutil.sensors_battery()
+        if battery is None:
+            print("[Battery] sensors unavailable; skipping battery alerts.")
+            return
         percentage = int(battery.percent)
 
         if percentage == 100:
@@ -92,8 +102,14 @@ def battery_Alert():
 
 
 def check_plug():
+    if not _HAS_PSUTIL:
+        print("[Battery] psutil not available; skipping charging monitor.")
+        return
     print("Monitoring charging status...")
     battery = psutil.sensors_battery()
+    if battery is None:
+        print("[Battery] sensors unavailable; skipping charging monitor.")
+        return
     previous_state = battery.power_plugged
 
     while True:
@@ -125,7 +141,13 @@ def check_plug():
 
 
 def check_percentage():
+    if not _HAS_PSUTIL:
+        print("[Battery] psutil not available; skipping battery percentage.")
+        return
     battery = psutil.sensors_battery()
+    if battery is None:
+        print("[Battery] sensors unavailable; skipping battery percentage.")
+        return
     percent = int(battery.percent)
 
     # Select follow-up tone
