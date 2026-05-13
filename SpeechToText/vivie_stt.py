@@ -53,7 +53,7 @@ def _get_model() -> WhisperModel:
     return _model
 
 
-def _energy(audio: np.ndarray) -> float:
+def _energy(audio) -> float:
     return float(np.sqrt(np.mean(audio.astype(np.float32) ** 2)))
 
 
@@ -69,7 +69,7 @@ def _is_vivie_speaking() -> bool:
         return False
 
 
-def _record() -> np.ndarray:
+def _record():
     chunk_size     = int(SAMPLE_RATE * 0.5)
     silence_chunks = 0
     silence_needed = int(SILENCE_DURATION / 0.5)
@@ -95,7 +95,7 @@ def _record() -> np.ndarray:
     return np.concatenate(chunks) if chunks else np.array([], dtype=np.int16)
 
 
-def _transcribe(audio: np.ndarray) -> str:
+def _transcribe(audio) -> str:
     if len(audio) < SAMPLE_RATE * 0.3:
         return ""
     try:
