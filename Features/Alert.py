@@ -10,8 +10,8 @@ except Exception:
     _HAS_WINOTIFY = False
 
 _BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# Expected repo layout: logo.png lives at the project root.
-_ICON_PATH = os.path.join(_BASE_DIR, "logo.png")
+# Expected repo layout: logo.png lives at the project root unless overridden.
+_ICON_PATH = os.getenv("VIVIE_ICON_PATH", os.path.join(_BASE_DIR, "logo.png"))
 
 def Alert(Text):
     if not _HAS_WINOTIFY or os.name != "nt":

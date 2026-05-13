@@ -55,6 +55,8 @@ def _get_model() -> WhisperModel:
 
 
 def _energy(audio: Any) -> float:
+    if not _HAS_AUDIO_STT or np is None:
+        return 0.0
     return float(np.sqrt(np.mean(audio.astype(np.float32) ** 2)))
 
 
@@ -71,6 +73,8 @@ def _is_vivie_speaking() -> bool:
 
 
 def _record() -> Any:
+    if not _HAS_AUDIO_STT or sd is None or np is None:
+        return []
     chunk_size     = int(SAMPLE_RATE * 0.5)
     silence_chunks = 0
     silence_needed = int(SILENCE_DURATION / 0.5)
@@ -97,6 +101,8 @@ def _record() -> Any:
 
 
 def _transcribe(audio: Any) -> str:
+    if not _HAS_AUDIO_STT or WhisperModel is None or np is None:
+        return ""
     if len(audio) < SAMPLE_RATE * 0.3:
         return ""
     try:

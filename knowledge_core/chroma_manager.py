@@ -4,6 +4,7 @@ Replaces keyword JSON matching with semantic understanding.
 """
 
 import os, json, logging, hashlib
+from typing import Union
 from datetime import datetime
 try:
     import chromadb
@@ -208,7 +209,7 @@ class _NoopChromaManager:
 # Singleton
 _instance = None
 _noop_instance = _NoopChromaManager()
-def get_chroma_manager() -> ChromaManager:
+def get_chroma_manager() -> Union[ChromaManager, _NoopChromaManager]:
     if not _HAS_CHROMA:
         return _noop_instance
     global _instance

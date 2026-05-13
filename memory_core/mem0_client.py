@@ -35,7 +35,7 @@ class MemoryClient:
         return self._client.search(*args, **kwargs)
 
 
-mem0 = MemoryClient(api_key=os.getenv("MEM0_API_KEY"))
+mem0 = MemoryClient(api_key=os.getenv("MEM0_API_KEY")) if _HAS_MEM0 else MemoryClient()
 
 user_name = "Boss"
 

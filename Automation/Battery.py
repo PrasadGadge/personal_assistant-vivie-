@@ -50,8 +50,9 @@ def battery_Alert():
         time.sleep(3)
         battery = psutil.sensors_battery()
         if battery is None:
-            print("[Battery] sensors unavailable; skipping battery alerts.")
-            return
+            print("[Battery] sensors unavailable; retrying battery alerts.")
+            time.sleep(30)
+            continue
         percentage = int(battery.percent)
 
         if percentage == 100:
