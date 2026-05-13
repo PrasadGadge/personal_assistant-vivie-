@@ -1,4 +1,3 @@
-import pywhatkit as pw
 import webbrowser
 import time
 from urllib.parse import quote
