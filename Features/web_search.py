@@ -4,9 +4,11 @@
 
 import requests
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except Exception:
+    load_dotenv = None
 
 TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 
