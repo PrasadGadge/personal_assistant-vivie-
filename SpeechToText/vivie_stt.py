@@ -6,9 +6,19 @@
 import os
 import time
 import threading
-import numpy as np
-import sounddevice as sd
-from faster_whisper import WhisperModel
+
+try:
+    import numpy as np
+    import sounddevice as sd
+    from faster_whisper import WhisperModel
+    _HAS_AUDIO_STT = True
+except Exception:
+    np = None
+    sd = None
+    WhisperModel = None
+    _HAS_AUDIO_STT = False
+
+_warned_missing_deps = False
 
 SAMPLE_RATE       = 16000
 CHANNELS          = 1
@@ -129,6 +139,13 @@ def listen() -> str:
     Automatically pauses while Vivie is speaking (echo prevention).
     Called in a while True loop by listen_loop() in main_brain.py.
     """
+    global _warned_missing_deps
+    if not _HAS_AUDIO_STT:
+        if not _warned_missing_deps:
+            print("[STT] Audio dependencies not available; skipping microphone input.")
+            _warned_missing_deps = True
+        time.sleep(0.5)
+        return ""
     print("🎤 Vivie STT Ready...")
     chunk_samples = int(SAMPLE_RATE * 1.5)
 
