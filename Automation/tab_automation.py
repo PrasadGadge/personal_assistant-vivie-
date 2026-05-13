@@ -1,114 +1,137 @@
-import pyautogui
+try:
+    import pyautogui
+    _HAS_PYAUTOGUI = True
+except Exception:
+    pyautogui = None
+    _HAS_PYAUTOGUI = False
+
+def _hotkey(*keys):
+    if not _HAS_PYAUTOGUI:
+        print("[Browser] pyautogui not available; skipping hotkey action.")
+        return
+    pyautogui.hotkey(*keys)
+
+def _press(key):
+    if not _HAS_PYAUTOGUI:
+        print("[Browser] pyautogui not available; skipping key press.")
+        return
+    pyautogui.press(key)
+
+def _scroll(amount):
+    if not _HAS_PYAUTOGUI:
+        print("[Browser] pyautogui not available; skipping scroll.")
+        return
+    pyautogui.scroll(amount)
 
 # ================= TAB CONTROLS =================
 def open_new_tab():
-    pyautogui.hotkey('ctrl', 't')
+    _hotkey('ctrl', 't')
 
 def close_tab():
-    pyautogui.hotkey('ctrl', 'w')
+    _hotkey('ctrl', 'w')
 
 def reopen_closed_tab():
-    pyautogui.hotkey('ctrl', 'shift', 't')
+    _hotkey('ctrl', 'shift', 't')
 
 def next_tab():
-    pyautogui.hotkey('ctrl', 'tab')
+    _hotkey('ctrl', 'tab')
 
 def previous_tab():
-    pyautogui.hotkey('ctrl', 'shift', 'tab')
+    _hotkey('ctrl', 'shift', 'tab')
 
 def go_to_tab_1():
-    pyautogui.hotkey('ctrl', '1')
+    _hotkey('ctrl', '1')
 
 def go_to_tab_2():
-    pyautogui.hotkey('ctrl', '2')
+    _hotkey('ctrl', '2')
 
 def go_to_tab_3():
-    pyautogui.hotkey('ctrl', '3')
+    _hotkey('ctrl', '3')
 
 def go_to_last_tab():
-    pyautogui.hotkey('ctrl', '9')
+    _hotkey('ctrl', '9')
 
 
 # ================= NAVIGATION =================
 def refresh_page():
-    pyautogui.hotkey('ctrl', 'r')
+    _hotkey('ctrl', 'r')
 
 def hard_refresh():
-    pyautogui.hotkey('ctrl', 'shift', 'r')
+    _hotkey('ctrl', 'shift', 'r')
 
 def go_back():
-    pyautogui.hotkey('alt', 'left')
+    _hotkey('alt', 'left')
 
 def go_forward():
-    pyautogui.hotkey('alt', 'right')
+    _hotkey('alt', 'right')
 
 def stop_loading():
-    pyautogui.press('esc')
+    _press('esc')
 
 def focus_address_bar():
-    pyautogui.hotkey('ctrl', 'l')
+    _hotkey('ctrl', 'l')
 
 def find_on_page():
-    pyautogui.hotkey('ctrl', 'f')
+    _hotkey('ctrl', 'f')
 
 
 # ================= ZOOM =================
 def zoom_in():
-    pyautogui.hotkey('ctrl', '+')
+    _hotkey('ctrl', '+')
 
 def zoom_out():
-    pyautogui.hotkey('ctrl', '-')
+    _hotkey('ctrl', '-')
 
 def reset_zoom():
-    pyautogui.hotkey('ctrl', '0')
+    _hotkey('ctrl', '0')
 
 
 # ================= SCROLL =================
 def scroll_down():
-    pyautogui.scroll(-800)
+    _scroll(-800)
 
 def scroll_up():
-    pyautogui.scroll(800)
+    _scroll(800)
 
 def scroll_to_top():
-    pyautogui.hotkey('home')
+    _hotkey('home')
 
 def scroll_to_bottom():
-    pyautogui.hotkey('end')
+    _hotkey('end')
 
 
 # ================= WINDOW =================
 def toggle_full_screen():
-    pyautogui.press('f11')
+    _press('f11')
 
 def minimize_window():
-    pyautogui.hotkey('win', 'down')
+    _hotkey('win', 'down')
 
 def maximize_window():
-    pyautogui.hotkey('win', 'up')
+    _hotkey('win', 'up')
 
 def close_window():
-    pyautogui.hotkey('alt', 'f4')
+    _hotkey('alt', 'f4')
 
 def open_private_window():
-    pyautogui.hotkey('ctrl', 'shift', 'n')
+    _hotkey('ctrl', 'shift', 'n')
 
 
 # ================= DEV & TOOLS =================
 def open_dev_tools():
-    pyautogui.hotkey('ctrl', 'shift', 'i')
+    _hotkey('ctrl', 'shift', 'i')
 
 def open_history():
-    pyautogui.hotkey('ctrl', 'h')
+    _hotkey('ctrl', 'h')
 
 def open_downloads():
-    pyautogui.hotkey('ctrl', 'j')
+    _hotkey('ctrl', 'j')
 
 def print_page():
-    pyautogui.hotkey('ctrl', 'p')
+    _hotkey('ctrl', 'p')
 
 def save_page():
-    pyautogui.hotkey('ctrl', 's')
+    _hotkey('ctrl', 's')
 
 
 # ================= COMMAND HANDLER =================
@@ -222,4 +245,3 @@ def perform_brower_action(text):
 
     else:
         pass
-

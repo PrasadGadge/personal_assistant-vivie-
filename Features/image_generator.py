@@ -1,10 +1,24 @@
 import asyncio
 from random import randint
-from PIL import Image
 import requests
-from dotenv import get_key
 import os
 from TextToSpeech.Fast_DF_TTS import speak
+
+try:
+    from PIL import Image
+except Exception:
+    Image = None
+
+try:
+    from dotenv import get_key
+except Exception:
+    _DOTENV_WARNED = False
+    def get_key(*args, **kwargs):
+        global _DOTENV_WARNED
+        if not _DOTENV_WARNED:
+            print("[ImageGen] python-dotenv not available; using empty API key.")
+            _DOTENV_WARNED = True
+        return None
 
 API_URL = "https://router.huggingface.co/hf-inference/models/runwayml/stable-diffusion-v1-5"
 

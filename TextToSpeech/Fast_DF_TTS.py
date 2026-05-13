@@ -3,7 +3,13 @@
 # ==================================================
 
 import asyncio, io, threading, time, re, tempfile, os
-import edge_tts
+
+try:
+    import edge_tts
+    _HAS_EDGE_TTS = True
+except Exception:
+    edge_tts = None
+    _HAS_EDGE_TTS = False
 # Import the personality module normally at the top - MUCH faster than importlib
 try:
     import voice_personality as vp
@@ -79,6 +85,9 @@ async def _fetch_audio(ssml_or_text: str, voice: str, rate: str, pitch: str, use
 def _play_blocking_audio(text: str, intent: str = "chat"):
     """Full pipeline: build SSML → fetch audio → play."""
     global _is_playing
+    if not _HAS_EDGE_TTS:
+        print("[TTS] edge-tts not available; skipping audio output.")
+        return
 
     # 1. Use the imported vp module to get SSML and params
     ssml = vp.build_ssml(text, intent)

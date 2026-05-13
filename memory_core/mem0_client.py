@@ -1,15 +1,43 @@
-from dotenv import load_dotenv
-from mem0 import MemoryClient
+try:
+    from dotenv import load_dotenv
+    _HAS_DOTENV = True
+except Exception:
+    load_dotenv = None
+    _HAS_DOTENV = False
+
+if _HAS_DOTENV:
+    load_dotenv()
+
+try:
+    from mem0 import MemoryClient as _Mem0Client
+    _HAS_MEM0 = True
+except Exception:
+    _Mem0Client = None
+    _HAS_MEM0 = False
 import logging
 import json
 import os
 
-load_dotenv()
+class MemoryClient:
+    def __init__(self, *args, **kwargs):
+        self._client = _Mem0Client(*args, **kwargs) if _HAS_MEM0 else None
 
-mem0=MemoryClient(api_key=os.getenv("MEM0_API_KEY"))
+    def add(self, *args, **kwargs):
+        if self._client is None:
+            print("[Memory] mem0 not available; skipping add.")
+            return None
+        return self._client.add(*args, **kwargs)
+
+    def search(self, *args, **kwargs):
+        if self._client is None:
+            print("[Memory] mem0 not available; skipping search.")
+            return {"results": []}
+        return self._client.search(*args, **kwargs)
+
+
+mem0 = MemoryClient(api_key=os.getenv("MEM0_API_KEY")) if _HAS_MEM0 else MemoryClient()
 
 user_name = "Boss"
-mem0 = MemoryClient()
 
 
 def add_memory():

@@ -3,13 +3,27 @@ chroma_manager.py — Vivie's Vector Knowledge Brain
 Replaces keyword JSON matching with semantic understanding.
 """
 
-import chromadb
-from chromadb.utils import embedding_functions
 import os, json, logging, hashlib
+from typing import Union
 from datetime import datetime
-from dotenv import load_dotenv
+try:
+    import chromadb
+    from chromadb.utils import embedding_functions
+    _HAS_CHROMA = True
+except Exception:
+    chromadb = None
+    embedding_functions = None
+    _HAS_CHROMA = False
 
-load_dotenv()
+try:
+    from dotenv import load_dotenv
+    _HAS_DOTENV = True
+except Exception:
+    load_dotenv = None
+    _HAS_DOTENV = False
+
+if _HAS_DOTENV:
+    load_dotenv()
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("ChromaManager")
@@ -30,6 +44,12 @@ os.environ["SENTENCE_TRANSFORMERS_HOME"] = os.path.join(BASE_DIR, "model_cache")
 class ChromaManager:
 
     def __init__(self):
+        if not _HAS_CHROMA:
+            logger.error("ChromaDB not available. Install it with: pip install chromadb")
+            self.client = None
+            self.embed_fn = None
+            self.collection = None
+            return
         try:
             self.client = chromadb.PersistentClient(path=CHROMA_DB_PATH)
             self.embed_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
@@ -47,6 +67,8 @@ class ChromaManager:
 
     def store(self, text: str, metadata: dict = None) -> bool:
         try:
+            if self.collection is None:
+                return False
             if not text or not text.strip():
                 return False
 
@@ -73,6 +95,8 @@ class ChromaManager:
 
     def retrieve(self, query: str, top_k: int = 3, threshold: float = 0.4) -> list:
         try:
+            if self.collection is None:
+                return []
             if not query or not query.strip():
                 return []
             total = self.collection.count()
@@ -99,6 +123,8 @@ class ChromaManager:
 
     def retrieve_with_metadata(self, query: str, top_k: int = 3) -> list:
         try:
+            if self.collection is None:
+                return []
             total = self.collection.count()
             if total == 0:
                 return []
@@ -124,10 +150,14 @@ class ChromaManager:
             return []
 
     def count(self) -> int:
+        if self.collection is None:
+            return 0
         return self.collection.count()
 
     def migrate_from_json(self) -> int:
         """One-time migration from your old knowledge_db.json"""
+        if self.collection is None:
+            return 0
         if not os.path.exists(JSON_DB_PATH):
             return 0
         try:
@@ -159,9 +189,29 @@ class ChromaManager:
             return 0
 
 
+class _NoopChromaManager:
+    def store(self, text: str, metadata: dict = None) -> bool:
+        return False
+
+    def retrieve(self, query: str, top_k: int = 3, threshold: float = 0.4) -> list:
+        return []
+
+    def retrieve_with_metadata(self, query: str, top_k: int = 3) -> list:
+        return []
+
+    def count(self) -> int:
+        return 0
+
+    def migrate_from_json(self) -> int:
+        return 0
+
+
 # Singleton
 _instance = None
-def get_chroma_manager() -> ChromaManager:
+_noop_instance = _NoopChromaManager()
+def get_chroma_manager() -> Union[ChromaManager, _NoopChromaManager]:
+    if not _HAS_CHROMA:
+        return _noop_instance
     global _instance
     if _instance is None:
         _instance = ChromaManager()

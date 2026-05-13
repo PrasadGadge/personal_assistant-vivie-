@@ -1,5 +1,29 @@
-import pyautogui
 import time
+
+try:
+    import pyautogui
+    _HAS_PYAUTOGUI = True
+except Exception:
+    pyautogui = None
+    _HAS_PYAUTOGUI = False
+
+def _press(key):
+    if not _HAS_PYAUTOGUI:
+        print("[YouTube] pyautogui not available; skipping key press.")
+        return
+    pyautogui.press(key)
+
+def _hotkey(*keys):
+    if not _HAS_PYAUTOGUI:
+        print("[YouTube] pyautogui not available; skipping hotkey.")
+        return
+    pyautogui.hotkey(*keys)
+
+def _write(text):
+    if not _HAS_PYAUTOGUI:
+        print("[YouTube] pyautogui not available; skipping typing.")
+        return
+    pyautogui.write(text)
 
 # ==============================
 #        AUTOMATION FUNCTIONS
@@ -7,73 +31,73 @@ import time
 
 # --- Basic Controls ---
 def play_pause():
-    pyautogui.press('space')
+    _press('space')
 
 def mute_unmute():
-    pyautogui.press('m')
+    _press('m')
 
 def full_screen():
-    pyautogui.press('f')
+    _press('f')
 
 def theater_mode():
-    pyautogui.press('t')
+    _press('t')
 
 def mini_player():
-    pyautogui.press('i')
+    _press('i')
 
 def captions_toggle():
-    pyautogui.press('c')
+    _press('c')
 
 # --- Skip Controls ---
 def forward_5_sec():
-    pyautogui.press('right')
+    _press('right')
 
 def backward_5_sec():
-    pyautogui.press('left')
+    _press('left')
 
 def forward_10_sec():
-    pyautogui.press('l')
+    _press('l')
 
 def backward_10_sec():
-    pyautogui.press('j')
+    _press('j')
 
 # --- Volume Controls ---
 def volume_up():
-    pyautogui.press('up')
+    _press('up')
 
 def volume_down():
-    pyautogui.press('down')
+    _press('down')
 
 # --- Speed Controls ---
 def increase_speed():
-    pyautogui.hotkey('shift', '>')
+    _hotkey('shift', '>')
 
 def decrease_speed():
-    pyautogui.hotkey('shift', '<')
+    _hotkey('shift', '<')
 
 # --- Navigation ---
 def next_video():
-    pyautogui.hotkey('shift', 'n')
+    _hotkey('shift', 'n')
 
 def previous_video():
-    pyautogui.hotkey('shift', 'p')
+    _hotkey('shift', 'p')
 
 # --- Jump to Percentage ---
 def jump_to_percent(number):
-    pyautogui.press(str(number))
+    _press(str(number))
 
 # --- Search YouTube ---
 def search_youtube(query):
-    pyautogui.hotkey('ctrl', 'l')
+    _hotkey('ctrl', 'l')
     time.sleep(1)
-    pyautogui.write("https://www.youtube.com")
-    pyautogui.press('enter')
+    _write("https://www.youtube.com")
+    _press('enter')
     time.sleep(3)
 
-    pyautogui.press('/')
+    _press('/')
     time.sleep(1)
-    pyautogui.write(query)
-    pyautogui.press('enter')
+    _write(query)
+    _press('enter')
 
 
 # ==============================

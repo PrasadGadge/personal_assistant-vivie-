@@ -5,10 +5,16 @@
 # ==================================================
 
 import asyncio
-import websockets
 import json
 import threading
 import os
+
+try:
+    import websockets
+    _HAS_WEBSOCKETS = True
+except Exception:
+    websockets = None
+    _HAS_WEBSOCKETS = False
 
 CLIENTS = set()
 _loop   = None
@@ -166,6 +172,9 @@ def _run_server():
 
 
 def start_websocket_server():
+    if not _HAS_WEBSOCKETS:
+        print("[UI] websockets not available; UI bridge disabled.")
+        return
     print("🌐 Starting WebSocket Bridge on ws://localhost:8765")
     threading.Thread(target=_run_server, daemon=True).start()
 
@@ -175,6 +184,8 @@ def start_websocket_server():
 # ─────────────────────────────────────────────────
 
 def emit_to_ui(event_type: str, value):
+    if not _HAS_WEBSOCKETS:
+        return
     if not CLIENTS or not _loop:
         return
     try:

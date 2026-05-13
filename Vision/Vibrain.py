@@ -1,10 +1,23 @@
 import os
-import cv2
 import time
 import base64
-from google import genai
-from google.genai import types
 from TextToSpeech.Fast_DF_TTS import speak
+
+try:
+    import cv2
+    _HAS_CV2 = True
+except Exception:
+    cv2 = None
+    _HAS_CV2 = False
+
+try:
+    from google import genai
+    from google.genai import types
+    _HAS_GENAI = True
+except Exception:
+    genai = None
+    types = None
+    _HAS_GENAI = False
 
 # --- CONFIGURATION ---
 # Gemini 2.0 Flash is the best for real-time vision in 2026
@@ -14,6 +27,8 @@ def vision_brain(image_path):
     """
     Analyzes the image using Google Gemini 2.0 Flash.
     """
+    if not _HAS_GENAI:
+        return "Vision system unavailable (google-genai not installed)."
     # The SDK automatically looks for GEMINI_API_KEY or GOOGLE_API_KEY in .env
     api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
     
@@ -46,6 +61,9 @@ def vision_brain(image_path):
         return "My vision system is currently experiencing a technical glitch."
 
 def capture_image_and_save(image_path="captured_image.jpg"):
+    if not _HAS_CV2:
+        print("[Vision] OpenCV not available; skipping image capture.")
+        return False
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
         print("Camera not found!")

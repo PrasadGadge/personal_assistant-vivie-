@@ -1,7 +1,15 @@
-import psutil
 from TextToSpeech.Fast_DF_TTS import speak
 
+try:
+    import psutil
+    _HAS_PSUTIL = True
+except Exception:
+    psutil = None
+    _HAS_PSUTIL = False
+
 def get_ram_info():
+    if not _HAS_PSUTIL:
+        return "System metrics unavailable (psutil not installed)."
     ram = psutil.virtual_memory()
     total_ram = ram.total / (1024 ** 3)
     available_ram = ram.available / (1024 ** 3)
@@ -9,6 +17,8 @@ def get_ram_info():
 
 
 def get_storage_info(drive_letter):
+    if not _HAS_PSUTIL:
+        return "System metrics unavailable (psutil not installed)."
     partition_info = psutil.disk_partitions()
 
     for partition in partition_info:

@@ -1,7 +1,13 @@
 import subprocess
-import pyautogui as gui
 import time
 import platform
+
+try:
+    import pyautogui as gui
+    _HAS_PYAUTOGUI = True
+except Exception:
+    gui = None
+    _HAS_PYAUTOGUI = False
 
 
 # ==============================
@@ -43,6 +49,10 @@ def open_App(app_name: str) -> bool:
 
     except Exception:
         print(f"[WARNING] Subprocess failed. Trying GUI fallback...")
+
+        if not _HAS_PYAUTOGUI or platform.system() != "Windows":
+            print("[WARNING] GUI fallback unavailable on this platform.")
+            return False
 
         # Try Method 2: Windows search fallback
         try:

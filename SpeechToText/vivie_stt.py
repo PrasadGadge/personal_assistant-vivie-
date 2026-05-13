@@ -6,9 +6,28 @@
 import os
 import time
 import threading
-import numpy as np
-import sounddevice as sd
-from faster_whisper import WhisperModel
+from typing import Any, TYPE_CHECKING, Union
+
+if TYPE_CHECKING:
+    import numpy as _np
+    NDArray = _np.ndarray
+else:
+    NDArray = Any
+
+AudioArray = Union[NDArray, list]
+
+try:
+    import numpy as np
+    import sounddevice as sd
+    from faster_whisper import WhisperModel
+    _HAS_AUDIO_STT = True
+except Exception:
+    np = None
+    sd = None
+    WhisperModel = None
+    _HAS_AUDIO_STT = False
+
+_warned_missing_deps = False
 
 SAMPLE_RATE       = 16000
 CHANNELS          = 1
@@ -43,7 +62,9 @@ def _get_model() -> WhisperModel:
     return _model
 
 
-def _energy(audio: np.ndarray) -> float:
+def _energy(audio: AudioArray) -> float:
+    if not _HAS_AUDIO_STT or np is None:
+        return 0.0
     return float(np.sqrt(np.mean(audio.astype(np.float32) ** 2)))
 
 
@@ -59,7 +80,9 @@ def _is_vivie_speaking() -> bool:
         return False
 
 
-def _record() -> np.ndarray:
+def _record() -> AudioArray:
+    if not _HAS_AUDIO_STT or sd is None or np is None:
+        return []
     chunk_size     = int(SAMPLE_RATE * 0.5)
     silence_chunks = 0
     silence_needed = int(SILENCE_DURATION / 0.5)
@@ -85,7 +108,9 @@ def _record() -> np.ndarray:
     return np.concatenate(chunks) if chunks else np.array([], dtype=np.int16)
 
 
-def _transcribe(audio: np.ndarray) -> str:
+def _transcribe(audio: AudioArray) -> str:
+    if not _HAS_AUDIO_STT or WhisperModel is None or np is None:
+        return ""
     if len(audio) < SAMPLE_RATE * 0.3:
         return ""
     try:
@@ -129,6 +154,13 @@ def listen() -> str:
     Automatically pauses while Vivie is speaking (echo prevention).
     Called in a while True loop by listen_loop() in main_brain.py.
     """
+    global _warned_missing_deps
+    if not _HAS_AUDIO_STT:
+        if not _warned_missing_deps:
+            print("[STT] Audio dependencies not available; skipping microphone input.")
+            _warned_missing_deps = True
+        time.sleep(0.5)
+        return ""
     print("🎤 Vivie STT Ready...")
     chunk_samples = int(SAMPLE_RATE * 1.5)
 

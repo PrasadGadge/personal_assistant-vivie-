@@ -6,12 +6,19 @@
 
 import os
 import re
-from openai import OpenAI
+try:
+    from openai import OpenAI
+    _HAS_OPENAI = True
+except Exception:
+    OpenAI = None
+    _HAS_OPENAI = False
 
-client = OpenAI(
-    api_key  = os.getenv("OPENROUTER_API_KEY"),
-    base_url = "https://openrouter.ai/api/v1"
-)
+client = None
+if _HAS_OPENAI:
+    client = OpenAI(
+        api_key  = os.getenv("OPENROUTER_API_KEY"),
+        base_url = "https://openrouter.ai/api/v1"
+    )
 
 MODEL       = "deepseek/deepseek-chat"
 TEMPERATURE = 0.5
@@ -39,6 +46,10 @@ def stream_response(text: str):
     waiting 2-3s for the full response.
     """
     buffer = ""
+
+    if not _HAS_OPENAI or client is None:
+        yield "I can't reach the language model right now."
+        return
 
     try:
         stream = client.chat.completions.create(
