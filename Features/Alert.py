@@ -1,25 +1,33 @@
 import os
-from winotify import Notification, audio
-from os import getcwd
 import time
 
+try:
+    from winotify import Notification, audio
+    _HAS_WINOTIFY = True
+except Exception:
+    Notification = None
+    audio = None
+    _HAS_WINOTIFY = False
+
+_BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_ICON_PATH = os.path.join(_BASE_DIR, "logo.png")
+
 def Alert(Text):
-    icon_path = r'C:\Users\dell\OneDrive\Desktop\Vivie_v1\logo.png'
+    if not _HAS_WINOTIFY or os.name != "nt":
+        print(Text)
+        return
 
     toast = Notification(
-    app_id= "Vivie",
-    title=Text,
-    duration="long",
-    icon=icon_path
-    
-)
+        app_id="Vivie",
+        title=Text,
+        duration="long",
+        icon=_ICON_PATH,
+    )
     time.sleep(1)
 
     toast.set_audio(audio.Default, loop=False)
 
-
     toast.add_actions(label="Click me", launch="https://www.google.com")
     toast.add_actions(label="Dismiss", launch="https://www.google.com")
-
 
     toast.show()
