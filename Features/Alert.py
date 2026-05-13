@@ -14,6 +14,7 @@ _BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _ICON_PATH = os.getenv("VIVIE_ICON_PATH", os.path.join(_BASE_DIR, "logo.png"))
 
 def Alert(Text):
+    """Show a Windows toast when available; fallback to stdout otherwise."""
     if not _HAS_WINOTIFY or os.name != "nt":
         print(Text)
         return

@@ -1,5 +1,7 @@
 import time
 
+SCROLL_PIXELS = 500
+
 try:
     import pyautogui
     _HAS_PYAUTOGUI = True
@@ -34,7 +36,7 @@ def scroll_up():
 
 # Scroll down (smooth mouse scroll)
 def scroll_down():
-    _scroll(-500)
+    _scroll(-SCROLL_PIXELS)
 
 
 # Scroll to top of page
