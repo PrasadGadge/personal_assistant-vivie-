@@ -17,11 +17,25 @@ from Automation.info             import get_info
 from TextToSpeech.Fast_DF_TTS    import speak, speak_blocking
 from DATA.App_web_data           import APP_NOT_FOUND_LINES, WEBSITE_NOT_FOUND_LINES
 
-import pyautogui as gui
-import pywhatkit
 import time
 import threading
 import random
+import webbrowser
+from urllib.parse import quote_plus
+
+try:
+    import pyautogui as gui
+    _HAS_PYAUTOGUI = True
+except Exception:
+    gui = None
+    _HAS_PYAUTOGUI = False
+
+try:
+    import pywhatkit
+    _HAS_PYWHATKIT = True
+except Exception:
+    pywhatkit = None
+    _HAS_PYWHATKIT = False
 
 # ── Import after-play lines safely ───────────────
 try:
@@ -36,15 +50,28 @@ except ImportError:
 # ─────────────────────────────────────────────────
 
 def play_pause():
+    if not _HAS_PYAUTOGUI:
+        print("[Automation] pyautogui not available; skipping play/pause.")
+        return
     gui.press("space")
 
 def close_window():
+    if not _HAS_PYAUTOGUI:
+        print("[Automation] pyautogui not available; skipping close window.")
+        return
     gui.hotkey('alt', 'f4')
 
 def search_google(text):
-    pywhatkit.search(text)
+    if _HAS_PYWHATKIT:
+        pywhatkit.search(text)
+        return
+    url = f"https://www.google.com/search?q={quote_plus(text)}"
+    webbrowser.open(url)
 
 def search(text):
+    if not _HAS_PYAUTOGUI:
+        print("[Automation] pyautogui not available; skipping in-page search.")
+        return
     gui.press("/")
     time.sleep(0.4)
     gui.write(text)
@@ -171,7 +198,8 @@ def Auto_main_brain(text: str) -> bool:
             speak(f"Boss, searching for {query} on this page.")
             search(query)
             time.sleep(0.5)
-            gui.press("enter")
+            if _HAS_PYAUTOGUI:
+                gui.press("enter")
             return True
 
         # GOOGLE SEARCH
