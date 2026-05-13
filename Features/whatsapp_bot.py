@@ -1,9 +1,15 @@
-import pywhatkit as kit
 import time
 import json
 import os
 from TextToSpeech.Fast_DF_TTS import speak
 from os import getcwd
+
+try:
+    import pywhatkit as kit
+    _HAS_PYWHATKIT = True
+except Exception:
+    kit = None
+    _HAS_PYWHATKIT = False
 
 # ==============================
 # 📂 File Paths
@@ -46,6 +52,10 @@ def find_contact(name, contacts):
 # ==============================
 def send_whatsapp(contact_number, message):
     try:
+        if not _HAS_PYWHATKIT:
+            speak("WhatsApp integration is unavailable right now.")
+            print("pywhatkit not available; skipping WhatsApp send.")
+            return
         speak("Sending message now.")
 
         # Small delay for system stability
