@@ -10,6 +10,7 @@ except Exception:
     _HAS_WINOTIFY = False
 
 _BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Expected repo layout: logo.png lives at the project root.
 _ICON_PATH = os.path.join(_BASE_DIR, "logo.png")
 
 def Alert(Text):

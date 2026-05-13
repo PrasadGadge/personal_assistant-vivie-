@@ -1,8 +1,12 @@
 try:
     from dotenv import load_dotenv
-    load_dotenv()
+    _HAS_DOTENV = True
 except Exception:
     load_dotenv = None
+    _HAS_DOTENV = False
+
+if _HAS_DOTENV:
+    load_dotenv()
 
 try:
     from mem0 import MemoryClient as _Mem0Client

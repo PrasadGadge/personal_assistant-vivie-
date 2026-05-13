@@ -19,11 +19,6 @@ def _hotkey(*keys):
         return
     pyautogui.hotkey(*keys)
 
-def _scroll(amount):
-    if not _HAS_PYAUTOGUI:
-        print("[Scroll] pyautogui not available; skipping scroll.")
-        return
-    pyautogui.scroll(amount)
 
 
 # Scroll up (smooth mouse scroll)
@@ -33,7 +28,7 @@ def scroll_up():
 
 # Scroll down (smooth mouse scroll)
 def scroll_down():
-    _scroll(-800)
+    _press("down", presses=5)
 
 
 # Scroll to top of page
