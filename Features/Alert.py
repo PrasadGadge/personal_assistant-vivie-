@@ -17,11 +17,12 @@ def Alert(Text):
         print(Text)
         return
 
+    icon_path = _ICON_PATH if os.path.exists(_ICON_PATH) else None
     toast = Notification(
         app_id="Vivie",
         title=Text,
         duration="long",
-        icon=_ICON_PATH,
+        icon=icon_path,
     )
     time.sleep(1)
 

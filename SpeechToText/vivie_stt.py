@@ -6,6 +6,7 @@
 import os
 import time
 import threading
+from typing import Any
 
 try:
     import numpy as np
@@ -53,7 +54,7 @@ def _get_model() -> WhisperModel:
     return _model
 
 
-def _energy(audio) -> float:
+def _energy(audio: Any) -> float:
     return float(np.sqrt(np.mean(audio.astype(np.float32) ** 2)))
 
 
@@ -69,7 +70,7 @@ def _is_vivie_speaking() -> bool:
         return False
 
 
-def _record():
+def _record() -> Any:
     chunk_size     = int(SAMPLE_RATE * 0.5)
     silence_chunks = 0
     silence_needed = int(SILENCE_DURATION / 0.5)
@@ -95,7 +96,7 @@ def _record():
     return np.concatenate(chunks) if chunks else np.array([], dtype=np.int16)
 
 
-def _transcribe(audio) -> str:
+def _transcribe(audio: Any) -> str:
     if len(audio) < SAMPLE_RATE * 0.3:
         return ""
     try:

@@ -33,7 +33,7 @@ def scroll_up():
 
 # Scroll down (smooth mouse scroll)
 def scroll_down():
-    _scroll(-500)
+    _scroll(-800)
 
 
 # Scroll to top of page

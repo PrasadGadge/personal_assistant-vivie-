@@ -34,7 +34,6 @@ class MemoryClient:
 mem0 = MemoryClient(api_key=os.getenv("MEM0_API_KEY"))
 
 user_name = "Boss"
-mem0 = MemoryClient()
 
 
 def add_memory():

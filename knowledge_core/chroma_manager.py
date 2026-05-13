@@ -40,7 +40,7 @@ class ChromaManager:
 
     def __init__(self):
         if not _HAS_CHROMA:
-            raise RuntimeError("ChromaDB not available")
+            raise RuntimeError("ChromaDB not available. Install it with: pip install chromadb")
         try:
             self.client = chromadb.PersistentClient(path=CHROMA_DB_PATH)
             self.embed_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
