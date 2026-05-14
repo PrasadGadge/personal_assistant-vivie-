@@ -138,7 +138,7 @@ def _get_song_from_queue(timeout: float = 15.0) -> str:
             if any(lower == w or lower.startswith(w + " ") for w in cancel_words):
                 return ""
 
-            if lower.startswith(command_prefixes):
+            if any(lower.startswith(prefix) for prefix in command_prefixes):
                 input_queue.put(cleaned)
                 return ""
 

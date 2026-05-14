@@ -1,5 +1,6 @@
 import json
 import os
+import threading
 from memory_core.mem0_client import MemoryClient
 from memory_core.Chatcontext import ChatContext
 
@@ -83,5 +84,4 @@ def store_memory(user_input: str, assistant_response: str, intent: str = "genera
         except Exception as e:
             print(f"[Memory Store Error] {e}")
 
-    import threading
     threading.Thread(target=_store, daemon=True).start()
