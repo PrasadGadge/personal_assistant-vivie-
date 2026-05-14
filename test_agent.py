@@ -89,34 +89,35 @@
 
 
 # test_stt.py — run this directly to test
-import numpy as np
-import sounddevice as sd
-from faster_whisper import WhisperModel
+if __name__ == "__main__":
+    import numpy as np
+    import sounddevice as sd
+    from faster_whisper import WhisperModel
 
-SAMPLE_RATE = 16000
+    SAMPLE_RATE = 16000
 
-print("Loading model...")
-model = WhisperModel("base", device="cpu", compute_type="int8")
-print("Model loaded.")
+    print("Loading model...")
+    model = WhisperModel("base", device="cpu", compute_type="int8")
+    print("Model loaded.")
 
-print("Recording 3 seconds... speak now")
-audio = sd.rec(
-    int(3 * SAMPLE_RATE),
-    samplerate = SAMPLE_RATE,
-    channels   = 1,
-    dtype      = 'int16'
-)
-sd.wait()
-print("Recording done.")
+    print("Recording 3 seconds... speak now")
+    audio = sd.rec(
+        int(3 * SAMPLE_RATE),
+        samplerate = SAMPLE_RATE,
+        channels   = 1,
+        dtype      = 'int16'
+    )
+    sd.wait()
+    print("Recording done.")
 
-audio_flat  = audio.flatten()
-audio_float = audio_flat.astype(np.float32) / 32768.0
+    audio_flat  = audio.flatten()
+    audio_float = audio_flat.astype(np.float32) / 32768.0
 
-print("Transcribing...")
-segments, _ = model.transcribe(
-    audio_float,
-    language  = "en",
-    beam_size = 3
-)
-text = " ".join(s.text.strip() for s in segments)
-print(f"You said: '{text}'")
+    print("Transcribing...")
+    segments, _ = model.transcribe(
+        audio_float,
+        language  = "en",
+        beam_size = 3
+    )
+    text = " ".join(s.text.strip() for s in segments)
+    print(f"You said: '{text}'")
