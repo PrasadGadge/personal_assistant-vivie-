@@ -60,7 +60,7 @@ def open_ui():
         time.sleep(2)   # wait for WebSocket server to start
         ui_path = _os_ui.path.join(
             _os_ui.path.dirname(_os_ui.path.abspath(__file__)),
-            "UI.html"
+            "ui.html"
         )
         webbrowser.open(f"file:///{ui_path.replace(chr(92), '/')}")
         print("🖥  UI launched in browser.")
@@ -93,7 +93,6 @@ def start_brain_threads():
     t5.start()
     t6.start()
     t7.start()
-    open_ui()
 
 
 # ─────────────────────────────────────────────────

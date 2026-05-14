@@ -1,5 +1,8 @@
 import json
 import os
+import threading
+import atexit
+from concurrent.futures import ThreadPoolExecutor
 from memory_core.mem0_client import MemoryClient
 from memory_core.Chatcontext import ChatContext
 
@@ -8,6 +11,8 @@ from memory_core.episodic_memory import store_episode, get_episode_context
 
 mem0    = MemoryClient()
 USER_ID = "Boss"
+_store_executor = ThreadPoolExecutor(max_workers=1)
+atexit.register(_store_executor.shutdown, wait=True)
 
 def retrieve_memory(query: str) -> ChatContext:
     ctx = ChatContext()
@@ -62,22 +67,25 @@ def retrieve_memory(query: str) -> ChatContext:
 
 
 def store_memory(user_input: str, assistant_response: str, intent: str = "general"):
-    try:
-        # Original mem0 storage — unchanged
-        mem0.add(
-            [
-                {"role": "user",      "content": user_input},
-                {"role": "assistant", "content": assistant_response}
-            ],
-            user_id=USER_ID
-        )
+    def _store():
+        try:
+            # Original mem0 storage — unchanged
+            mem0.add(
+                [
+                    {"role": "user",      "content": user_input},
+                    {"role": "assistant", "content": assistant_response}
+                ],
+                user_id=USER_ID
+            )
 
-        # ✅ NEW — also store as episode
-        store_episode(
-            user_input=user_input,
-            vivie_response=assistant_response,
-            intent=intent
-        )
+            # ✅ NEW — also store as episode
+            store_episode(
+                user_input=user_input,
+                vivie_response=assistant_response,
+                intent=intent
+            )
 
-    except Exception as e:
-        print(f"[Memory Store Error] {e}")
+        except Exception as e:
+            print(f"[Memory Store Error] {e}")
+
+    _store_executor.submit(_store)

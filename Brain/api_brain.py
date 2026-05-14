@@ -14,11 +14,14 @@ except Exception:
     _HAS_OPENAI = False
 
 client = None
-if _HAS_OPENAI:
+API_KEY = os.getenv("OPENROUTER_API_KEY")
+if _HAS_OPENAI and API_KEY:
     client = OpenAI(
-        api_key  = os.getenv("OPENROUTER_API_KEY"),
+        api_key  = API_KEY,
         base_url = "https://openrouter.ai/api/v1"
     )
+elif _HAS_OPENAI and not API_KEY:
+    print("[API] OPENROUTER_API_KEY not set; LLM disabled.")
 
 MODEL       = "deepseek/deepseek-chat"
 TEMPERATURE = 0.5

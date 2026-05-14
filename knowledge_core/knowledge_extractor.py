@@ -1,4 +1,11 @@
-def extract_knowledge(user_input, response):
+def extract_knowledge(user_input, response, source: str = "llm"):
+    """
+    Extract lightweight knowledge from non-LLM sources.
+    Use source="tool"/"agent" to enable extraction, or "llm" to skip.
+    """
+
+    if source == "llm":
+        return None
 
     if not response:
         return None

@@ -12,7 +12,7 @@ try:
 except Exception:
     UI_AVAILABLE = False
 
-from Automation.Automation_brain import Auto_main_brain
+from Automation.Automation_brain import Auto_main_brain, REDIRECT_PREFIX
 from SpeechToText.vivie_stt import listen
 from TextToSpeech.Fast_DF_TTS import speak, speak_blocking, stop_speaking
 from TextToSpeech.Fast_DF_TTS import is_speaking as tts_is_speaking
@@ -281,16 +281,17 @@ def process_text(text: str):
     text = normalize_input(text)
     text = autocorrect_input(text)
     text = fix_wake_word(text)
+    text_lower = text.lower()
 
     # ── Kill switch ──────────────────────────────
     stop_words = ["go to sleep","vivie silence","vivie stop","vivie keep quiet",
                   "vivie shut down","stop vivie"]
-    if "stop" in text or any(w in text for w in stop_words):
+    if re.search(r"\bstop\b", text_lower) or any(w in text_lower for w in stop_words):
         VIVIE_ACTIVE = False
         return "Okay, going silent Boss."
 
     wake_words = ["wake up","vivie wake up","vivie start","vivie speak"]
-    if "start" in text or any(w in text for w in wake_words):
+    if text_lower.strip() == "start" or any(w in text_lower for w in wake_words):
         VIVIE_ACTIVE = True
         return "Hey Boss, I am back."
 
@@ -371,7 +372,9 @@ def process_text(text: str):
     # holds it we wait, which is the correct and safe behaviour.
     with processing_lock:
 
-        handled = Auto_main_brain(text)
+        handled = False
+        if primary_intent == "automation" and confidence >= 0.75:
+            handled = Auto_main_brain(text)
         if handled:
             return "Done"
 
@@ -400,7 +403,8 @@ def process_text(text: str):
                 response = format_response(tool_result)
                 response = self_reflection.evaluate(details, response)
                 context_manager.update(intent, details, response)
-                info = extract_knowledge(details, response)
+                # Only extract knowledge for non-LLM outputs to avoid extra LLM extraction overhead.
+                info = extract_knowledge(details, response, source="tool")
                 if info: store_knowledge(info, {"source": "tool", "query": details[:100]})
                 store_memory(details, response)
                 update_ui("sig_vivie_message", response)
@@ -411,7 +415,7 @@ def process_text(text: str):
             if agent_name != "none" and agent_response:
                 agent_response = format_response(agent_response)
                 context_manager.update(intent, details, agent_response)
-                info = extract_knowledge(details, agent_response)
+                info = extract_knowledge(details, agent_response, source="agent")
                 if info: store_knowledge(info, {"source": f"{agent_name}_agent", "query": details[:100]})
                 store_memory(details, agent_response)
                 update_ui("sig_vivie_message", agent_response)
@@ -558,8 +562,6 @@ def process_text(text: str):
                     )
                     response = Main_Brain(final_input)
                     if response:
-                        info = extract_knowledge(details, response)
-                        if info: store_knowledge(info, {"source": "web_search", "query": details[:100]})
                         context_manager.update(intent, details, response)
                         update_ui("sig_vivie_message", response)
                         return response
@@ -639,11 +641,15 @@ def process_text(text: str):
                         return result[:400]
 
                 # ── Decision Engine + LLM ─────────
-                mem_ctx2   = retrieve_memory(details)
-                msgs2      = mem_ctx2.get() if mem_ctx2 else []
-                mem_block2 = "".join(m.get("content","") + "\n" for m in msgs2)
+                mem_block2 = memory_block
+                knowledge2 = knowledge_context
+                if not mem_block2:
+                    mem_ctx2   = retrieve_memory(details)
+                    msgs2      = mem_ctx2.get() if mem_ctx2 else []
+                    mem_block2 = "".join(m.get("content","") + "\n" for m in msgs2)
 
-                knowledge2      = retrieve_knowledge(details)
+                if not knowledge2:
+                    knowledge2 = retrieve_knowledge(details) or ""
                 contextual_input = context_manager.build_context_prompt(details)
 
                 reasoning_steps = reasoning_engine.think(
@@ -722,8 +728,6 @@ def process_text(text: str):
                     response = format_response(response)
                     response = self_reflection.evaluate(details, response)
                     context_manager.update(intent, details, response)
-                    info = extract_knowledge(details, response)
-                    if info: store_knowledge(info, {"source": "conversation", "query": details[:100]})
                     store_memory(details, response)
                     _emit_memory_counts()
                     try:
@@ -779,7 +783,9 @@ def listen_loop():
     while True:
         try:
             update_ui("sig_agent_state", "listening...")
+            update_ui("sig_listening", True)
             text = listen()
+            update_ui("sig_listening", False)
 
             if text and text.strip():
                 print(f"[QUEUE] Input: {text}")
@@ -789,6 +795,7 @@ def listen_loop():
                 input_queue.put(text.strip())
 
         except Exception as e:
+            update_ui("sig_listening", False)
             print(f"[STT Error]: {e}")
             time.sleep(0.2)
 
@@ -804,6 +811,8 @@ def brain_loop():
     while True:
         try:
             text = input_queue.get(timeout=0.2)
+            if isinstance(text, str) and text.startswith(REDIRECT_PREFIX):
+                text = text[len(REDIRECT_PREFIX):]
             if text == last_processed:
                 continue
             last_processed = text

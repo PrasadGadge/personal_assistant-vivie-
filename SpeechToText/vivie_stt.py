@@ -183,6 +183,7 @@ def listen() -> str:
                     flat    = data.flatten()
 
                 if _energy(flat) < SILENCE_THRESHOLD * 0.7:
+                    time.sleep(0.05)
                     continue
 
                 # Still not speaking? OK to transcribe
@@ -191,6 +192,7 @@ def listen() -> str:
 
                 text = _transcribe(flat)
                 if not text or not _has_wake_word(text):
+                    time.sleep(0.05)
                     continue
 
                 print(f"[STT] Wake word: '{text}'")

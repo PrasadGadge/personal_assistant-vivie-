@@ -7,6 +7,7 @@
 import os
 import re
 import datetime
+from collections import deque
 try:
     from dotenv import load_dotenv
     load_dotenv()
@@ -15,7 +16,7 @@ except Exception:
 
 BASE_DIR     = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HISTORY_FILE = os.path.join(BASE_DIR, "vivie_history.txt")
-MAX_HISTORY_CHARS = 12000
+MAX_HISTORY_WORDS = 2000
 
 
 # ─────────────────────────────────────────────────
@@ -110,8 +111,14 @@ def save_history(history: str):
 
 
 def trim_history(history: str) -> str:
-    if len(history) > MAX_HISTORY_CHARS:
-        return history[-MAX_HISTORY_CHARS:]
+    token_starts = deque(maxlen=MAX_HISTORY_WORDS)
+    overflow = False
+    for match in re.finditer(r"\S+", history):
+        if len(token_starts) == MAX_HISTORY_WORDS:
+            overflow = True
+        token_starts.append(match.start())
+    if overflow:
+        return history[token_starts[0]:]
     return history
 
 

@@ -32,7 +32,7 @@ class Planner:
         # ── Legacy hardcoded types ─────────────────
         elif primary == "file_creation":
             actions.append({"type": "create_file",          "details": user_text})
-        elif primary == "internet":
+        elif primary in ("internet", "internet_speed"):
             actions.append({"type": "check_internet_speed", "details": user_text})
         elif primary == "vision":
             actions.append({"type": "vision_analysis",      "details": user_text})
