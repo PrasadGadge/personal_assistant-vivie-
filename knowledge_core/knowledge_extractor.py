@@ -1,4 +1,7 @@
-def extract_knowledge(user_input, response):
+def extract_knowledge(user_input, response, source: str = "llm"):
+
+    if source == "llm":
+        return None
 
     if not response:
         return None

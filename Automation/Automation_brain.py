@@ -121,8 +121,33 @@ def _get_song_from_queue(timeout: float = 15.0) -> str:
     """
     try:
         from main_brain import input_queue
-        song = input_queue.get(timeout=timeout)
-        return song.strip() if song else ""
+        deadline = time.monotonic() + timeout
+        cancel_words = ("cancel", "stop", "never mind", "nevermind", "cancel that")
+        command_prefixes = ("open ", "close ", "set ", "start ", "search ", "vivie ")
+
+        while True:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                return ""
+            song = input_queue.get(timeout=remaining)
+            if not song:
+                continue
+            cleaned = song.strip()
+            lower = cleaned.lower()
+
+            if any(lower == w or lower.startswith(w + " ") for w in cancel_words):
+                return ""
+
+            if lower.startswith(command_prefixes):
+                input_queue.put(cleaned)
+                return ""
+
+            if lower.startswith("play "):
+                cleaned = cleaned[5:].strip()
+                if not cleaned:
+                    continue
+
+            return cleaned
     except Exception:
         return ""
 

@@ -62,22 +62,26 @@ def retrieve_memory(query: str) -> ChatContext:
 
 
 def store_memory(user_input: str, assistant_response: str, intent: str = "general"):
-    try:
-        # Original mem0 storage — unchanged
-        mem0.add(
-            [
-                {"role": "user",      "content": user_input},
-                {"role": "assistant", "content": assistant_response}
-            ],
-            user_id=USER_ID
-        )
+    def _store():
+        try:
+            # Original mem0 storage — unchanged
+            mem0.add(
+                [
+                    {"role": "user",      "content": user_input},
+                    {"role": "assistant", "content": assistant_response}
+                ],
+                user_id=USER_ID
+            )
 
-        # ✅ NEW — also store as episode
-        store_episode(
-            user_input=user_input,
-            vivie_response=assistant_response,
-            intent=intent
-        )
+            # ✅ NEW — also store as episode
+            store_episode(
+                user_input=user_input,
+                vivie_response=assistant_response,
+                intent=intent
+            )
 
-    except Exception as e:
-        print(f"[Memory Store Error] {e}")
+        except Exception as e:
+            print(f"[Memory Store Error] {e}")
+
+    import threading
+    threading.Thread(target=_store, daemon=True).start()

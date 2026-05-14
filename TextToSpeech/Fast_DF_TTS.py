@@ -132,9 +132,6 @@ def _play_blocking_audio(text: str, intent: str = "chat"):
         play_thread.start()
 
         while play_thread.is_alive():
-            if _stop_event.is_set():
-                # Note: playsound is hard to kill instantly, but we can stop tracking it
-                break
             time.sleep(0.05)
 
         play_thread.join(timeout=1)

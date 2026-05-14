@@ -93,7 +93,6 @@ def start_brain_threads():
     t5.start()
     t6.start()
     t7.start()
-    open_ui()
 
 
 # ─────────────────────────────────────────────────

@@ -3,8 +3,9 @@ from pathlib import Path
 
 
 class TestRepoAssets(unittest.TestCase):
-    def setUp(self):
-        self.repo_root = Path(__file__).resolve().parents[1]
+    @classmethod
+    def setUpClass(cls):
+        cls.repo_root = Path(__file__).resolve().parents[1]
 
     def test_ui_html_exists(self):
         self.assertTrue((self.repo_root / "ui.html").is_file())

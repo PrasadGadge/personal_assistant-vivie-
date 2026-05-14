@@ -15,7 +15,7 @@ except Exception:
 
 BASE_DIR     = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HISTORY_FILE = os.path.join(BASE_DIR, "vivie_history.txt")
-MAX_HISTORY_CHARS = 12000
+MAX_HISTORY_TOKENS = 2000
 
 
 # ─────────────────────────────────────────────────
@@ -110,8 +110,10 @@ def save_history(history: str):
 
 
 def trim_history(history: str) -> str:
-    if len(history) > MAX_HISTORY_CHARS:
-        return history[-MAX_HISTORY_CHARS:]
+    tokens = list(re.finditer(r"\S+", history))
+    if len(tokens) > MAX_HISTORY_TOKENS:
+        start_index = tokens[-MAX_HISTORY_TOKENS].start()
+        return history[start_index:]
     return history
 
 
