@@ -112,11 +112,12 @@ def save_history(history: str):
 
 def trim_history(history: str) -> str:
     token_starts = deque(maxlen=MAX_HISTORY_WORDS)
-    count = 0
+    overflow = False
     for match in re.finditer(r"\S+", history):
+        if len(token_starts) == MAX_HISTORY_WORDS:
+            overflow = True
         token_starts.append(match.start())
-        count += 1
-    if count > MAX_HISTORY_WORDS:
+    if overflow:
         return history[token_starts[0]:]
     return history
 

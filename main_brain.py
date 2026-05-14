@@ -286,7 +286,7 @@ def process_text(text: str):
     # ── Kill switch ──────────────────────────────
     stop_words = ["go to sleep","vivie silence","vivie stop","vivie keep quiet",
                   "vivie shut down","stop vivie"]
-    if "stop" in text_lower or any(w in text_lower for w in stop_words):
+    if re.search(r"\bstop\b", text_lower) or any(w in text_lower for w in stop_words):
         VIVIE_ACTIVE = False
         return "Okay, going silent Boss."
 
@@ -403,6 +403,7 @@ def process_text(text: str):
                 response = format_response(tool_result)
                 response = self_reflection.evaluate(details, response)
                 context_manager.update(intent, details, response)
+                # Only extract knowledge for non-LLM outputs to avoid extra LLM extraction overhead.
                 info = extract_knowledge(details, response, source="tool")
                 if info: store_knowledge(info, {"source": "tool", "query": details[:100]})
                 store_memory(details, response)

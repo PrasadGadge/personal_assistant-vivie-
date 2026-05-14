@@ -21,11 +21,15 @@ import time
 import threading
 import random
 import webbrowser
+from enum import Enum, auto
+from typing import Union
 from urllib.parse import quote_plus
 
 REDIRECT_PREFIX = "__redirect__:"
-_CANCELLED = object()
-_REDIRECTED = object()
+
+class SongRequestStatus(Enum):
+    CANCELLED = auto()
+    REDIRECTED = auto()
 
 try:
     import pyautogui as gui
@@ -64,6 +68,9 @@ def close_window():
         print("[Automation] pyautogui not available; skipping close window.")
         return
     gui.hotkey('alt', 'f4')
+
+def _matches_phrase(text: str, phrase: str) -> bool:
+    return text == phrase or text.startswith(f"{phrase} ")
 
 def search_google(text):
     if _HAS_PYWHATKIT:
@@ -118,11 +125,12 @@ def open_brain(text):
 #      NetHyTech STT puts text in input_queue, not files.
 # ─────────────────────────────────────────────────
 
-def _get_song_from_queue(timeout: float = 15.0) -> object:
+def _get_song_from_queue(timeout: float = 15.0) -> Union[str, SongRequestStatus]:
     """
     Wait for a song name from the STT input_queue.
     Returns the song name string, "" on timeout,
-    _CANCELLED on user cancellation, or _REDIRECTED when a command is re-queued.
+    SongRequestStatus.CANCELLED on user cancellation,
+    or SongRequestStatus.REDIRECTED when a command is re-queued.
     """
     try:
         from main_brain import input_queue
@@ -140,13 +148,13 @@ def _get_song_from_queue(timeout: float = 15.0) -> object:
             cleaned = song.strip()
             lower = cleaned.lower()
 
-            if any(lower == phrase or lower.startswith(phrase + " ") for phrase in cancel_phrases):
-                return _CANCELLED
+            if any(_matches_phrase(lower, phrase) for phrase in cancel_phrases):
+                return SongRequestStatus.CANCELLED
 
             if any(lower.startswith(prefix) for prefix in command_prefixes):
                 print(f"[Automation] Redirecting command from song input: {cleaned}")
                 input_queue.put(f"{REDIRECT_PREFIX}{cleaned}")
-                return _REDIRECTED
+                return SongRequestStatus.REDIRECTED
 
             if lower.startswith("play "):
                 cleaned = cleaned[5:].strip()
@@ -161,10 +169,10 @@ def _get_song_from_queue(timeout: float = 15.0) -> object:
 def handle_music_youtube():
     speak_blocking("Which song would you like me to play on YouTube, Boss?")
     song = _get_song_from_queue(timeout=15)
-    if song is _CANCELLED:
+    if song is SongRequestStatus.CANCELLED:
         speak("Okay Boss, cancelling the request.")
         return
-    if song is _REDIRECTED:
+    if song is SongRequestStatus.REDIRECTED:
         return
     if song:
         play_music_on_youtube(song)
@@ -176,10 +184,10 @@ def handle_music_youtube():
 def handle_music_spotify():
     speak_blocking("Please tell me the song name for Spotify, Boss.")
     song = _get_song_from_queue(timeout=15)
-    if song is _CANCELLED:
+    if song is SongRequestStatus.CANCELLED:
         speak("Okay Boss, cancelling the request.")
         return
-    if song is _REDIRECTED:
+    if song is SongRequestStatus.REDIRECTED:
         return
     if song:
         play_music_on_spotify(song)
