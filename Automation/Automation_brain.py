@@ -118,10 +118,11 @@ def open_brain(text):
 #      NetHyTech STT puts text in input_queue, not files.
 # ─────────────────────────────────────────────────
 
-def _get_song_from_queue(timeout: float = 15.0):
+def _get_song_from_queue(timeout: float = 15.0) -> object:
     """
     Wait for a song name from the STT input_queue.
-    Returns the song name or empty string on timeout.
+    Returns the song name string, "" on timeout,
+    _CANCELLED on user cancellation, or _REDIRECTED when a command is re-queued.
     """
     try:
         from main_brain import input_queue

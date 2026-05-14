@@ -281,16 +281,17 @@ def process_text(text: str):
     text = normalize_input(text)
     text = autocorrect_input(text)
     text = fix_wake_word(text)
+    text_lower = text.lower()
 
     # ── Kill switch ──────────────────────────────
     stop_words = ["go to sleep","vivie silence","vivie stop","vivie keep quiet",
                   "vivie shut down","stop vivie"]
-    if "stop" in text or any(w in text for w in stop_words):
+    if "stop" in text_lower or any(w in text_lower for w in stop_words):
         VIVIE_ACTIVE = False
         return "Okay, going silent Boss."
 
     wake_words = ["wake up","vivie wake up","vivie start","vivie speak"]
-    if text.strip().lower() == "start" or any(w in text for w in wake_words):
+    if text_lower.strip() == "start" or any(w in text_lower for w in wake_words):
         VIVIE_ACTIVE = True
         return "Hey Boss, I am back."
 
