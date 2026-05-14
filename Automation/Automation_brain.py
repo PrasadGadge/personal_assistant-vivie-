@@ -122,7 +122,7 @@ def _get_song_from_queue(timeout: float = 15.0) -> str:
     try:
         from main_brain import input_queue
         deadline = time.monotonic() + timeout
-        cancel_words = ("cancel", "stop", "never mind", "nevermind", "cancel that")
+        cancel_phrases = ("cancel", "stop", "never mind", "nevermind", "cancel that")
         command_prefixes = ("open ", "close ", "set ", "start ", "search ", "vivie ")
 
         while True:
@@ -135,10 +135,11 @@ def _get_song_from_queue(timeout: float = 15.0) -> str:
             cleaned = song.strip()
             lower = cleaned.lower()
 
-            if any(lower == w or lower.startswith(w + " ") for w in cancel_words):
+            if any(lower == phrase or lower.startswith(phrase + " ") for phrase in cancel_phrases):
                 return ""
 
             if any(lower.startswith(prefix) for prefix in command_prefixes):
+                print(f"[Automation] Redirecting command from song input: {cleaned}")
                 input_queue.put(cleaned)
                 return ""
 

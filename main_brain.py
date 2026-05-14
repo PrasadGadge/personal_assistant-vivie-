@@ -290,7 +290,7 @@ def process_text(text: str):
         return "Okay, going silent Boss."
 
     wake_words = ["wake up","vivie wake up","vivie start","vivie speak"]
-    if text.strip() == "start" or any(w in text for w in wake_words):
+    if text.strip().lower() == "start" or any(w in text for w in wake_words):
         VIVIE_ACTIVE = True
         return "Hey Boss, I am back."
 

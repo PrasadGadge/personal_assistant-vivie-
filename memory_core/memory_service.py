@@ -1,6 +1,8 @@
 import json
 import os
 import threading
+import atexit
+from concurrent.futures import ThreadPoolExecutor
 from memory_core.mem0_client import MemoryClient
 from memory_core.Chatcontext import ChatContext
 
@@ -9,6 +11,8 @@ from memory_core.episodic_memory import store_episode, get_episode_context
 
 mem0    = MemoryClient()
 USER_ID = "Boss"
+_store_executor = ThreadPoolExecutor(max_workers=1)
+atexit.register(_store_executor.shutdown, wait=True)
 
 def retrieve_memory(query: str) -> ChatContext:
     ctx = ChatContext()
@@ -84,4 +88,4 @@ def store_memory(user_input: str, assistant_response: str, intent: str = "genera
         except Exception as e:
             print(f"[Memory Store Error] {e}")
 
-    threading.Thread(target=_store, daemon=True).start()
+    _store_executor.submit(_store)

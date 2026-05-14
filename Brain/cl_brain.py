@@ -7,6 +7,7 @@
 import os
 import re
 import datetime
+from collections import deque
 try:
     from dotenv import load_dotenv
     load_dotenv()
@@ -110,10 +111,13 @@ def save_history(history: str):
 
 
 def trim_history(history: str) -> str:
-    tokens = list(re.finditer(r"\S+", history))
-    if len(tokens) > MAX_HISTORY_TOKENS:
-        start_index = tokens[-MAX_HISTORY_TOKENS].start()
-        return history[start_index:]
+    token_starts = deque(maxlen=MAX_HISTORY_TOKENS)
+    count = 0
+    for match in re.finditer(r"\S+", history):
+        token_starts.append(match.start())
+        count += 1
+    if count > MAX_HISTORY_TOKENS:
+        return history[token_starts[0]:]
     return history
 
 
