@@ -23,6 +23,10 @@ import random
 import webbrowser
 from urllib.parse import quote_plus
 
+REDIRECT_PREFIX = "__redirect__:"
+_CANCELLED = object()
+_REDIRECTED = object()
+
 try:
     import pyautogui as gui
     _HAS_PYAUTOGUI = True
@@ -114,7 +118,7 @@ def open_brain(text):
 #      NetHyTech STT puts text in input_queue, not files.
 # ─────────────────────────────────────────────────
 
-def _get_song_from_queue(timeout: float = 15.0) -> str:
+def _get_song_from_queue(timeout: float = 15.0):
     """
     Wait for a song name from the STT input_queue.
     Returns the song name or empty string on timeout.
@@ -136,12 +140,12 @@ def _get_song_from_queue(timeout: float = 15.0) -> str:
             lower = cleaned.lower()
 
             if any(lower == phrase or lower.startswith(phrase + " ") for phrase in cancel_phrases):
-                return ""
+                return _CANCELLED
 
             if any(lower.startswith(prefix) for prefix in command_prefixes):
                 print(f"[Automation] Redirecting command from song input: {cleaned}")
-                input_queue.put(cleaned)
-                return ""
+                input_queue.put(f"{REDIRECT_PREFIX}{cleaned}")
+                return _REDIRECTED
 
             if lower.startswith("play "):
                 cleaned = cleaned[5:].strip()
@@ -156,6 +160,11 @@ def _get_song_from_queue(timeout: float = 15.0) -> str:
 def handle_music_youtube():
     speak_blocking("Which song would you like me to play on YouTube, Boss?")
     song = _get_song_from_queue(timeout=15)
+    if song is _CANCELLED:
+        speak("Okay Boss, cancelling the request.")
+        return
+    if song is _REDIRECTED:
+        return
     if song:
         play_music_on_youtube(song)
         speak(random.choice(YOUTUBE_AFTER_PLAY_LINES))
@@ -166,6 +175,11 @@ def handle_music_youtube():
 def handle_music_spotify():
     speak_blocking("Please tell me the song name for Spotify, Boss.")
     song = _get_song_from_queue(timeout=15)
+    if song is _CANCELLED:
+        speak("Okay Boss, cancelling the request.")
+        return
+    if song is _REDIRECTED:
+        return
     if song:
         play_music_on_spotify(song)
         speak(random.choice(SPOTIFY_AFTER_PLAY_LINES))

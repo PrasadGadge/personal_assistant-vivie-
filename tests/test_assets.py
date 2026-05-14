@@ -7,7 +7,7 @@ class TestRepoAssets(unittest.TestCase):
     def setUpClass(cls):
         cls.repo_root = Path(__file__).resolve().parents[1]
 
-    def test_ui_html_exists(self):
+    def test_ui_html_file_exists(self):
         self.assertTrue((self.repo_root / "ui.html").is_file())
 
     def test_schedule_files_exist(self):

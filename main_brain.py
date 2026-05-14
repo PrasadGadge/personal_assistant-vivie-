@@ -12,7 +12,7 @@ try:
 except Exception:
     UI_AVAILABLE = False
 
-from Automation.Automation_brain import Auto_main_brain
+from Automation.Automation_brain import Auto_main_brain, REDIRECT_PREFIX
 from SpeechToText.vivie_stt import listen
 from TextToSpeech.Fast_DF_TTS import speak, speak_blocking, stop_speaking
 from TextToSpeech.Fast_DF_TTS import is_speaking as tts_is_speaking
@@ -809,6 +809,8 @@ def brain_loop():
     while True:
         try:
             text = input_queue.get(timeout=0.2)
+            if isinstance(text, str) and text.startswith(REDIRECT_PREFIX):
+                text = text[len(REDIRECT_PREFIX):]
             if text == last_processed:
                 continue
             last_processed = text
